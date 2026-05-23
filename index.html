@@ -1931,17 +1931,17 @@
 
     /* Header hide/show on scroll */
     header {
-      transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+      transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1),
                   background 0.35s, color 0.35s;
       will-change: transform;
     }
 
     header.header-hidden {
-      transform: translateY(-100%);
+      transform: translateY(-110%);
     }
 
     .search-wrapper {
-      position: static;
+      position: relative;
       display: flex;
       align-items: center;
     }
@@ -1980,7 +1980,79 @@
       line-height: 1;
     }
 
-    /* Full-width search overlay bar (replaces expanding input) */
+    /* Desktop: inline expanding input */
+    .search-input-wrap {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.22s ease;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .search-input-wrap.open {
+      width: 280px;
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .search-input-wrap input {
+      flex: 1;
+      height: 36px;
+      padding: 0 14px 0 16px;
+      border: none;
+      background: transparent;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      color: var(--text);
+      outline: none;
+    }
+
+    .search-input-wrap input::placeholder {
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .search-input-clear {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-radius: 50%;
+      margin-right: 3px;
+      transition: color 0.18s, background 0.18s;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .search-input-clear.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .search-input-clear:hover {
+      color: var(--accent);
+      background: var(--bg2);
+    }
+
+    /* Mobile-only: full-width overlay bar */
     .search-overlay-bar {
       position: fixed;
       top: 0;
@@ -1989,10 +2061,10 @@
       z-index: 200;
       background: var(--card);
       border-bottom: 1px solid var(--border);
-      display: flex;
+      display: none;
       align-items: center;
       gap: 12px;
-      padding: 10px 20px;
+      padding: 10px 16px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.10);
       transform: translateY(-110%);
       opacity: 0;
@@ -2093,33 +2165,29 @@
       color: var(--accent);
     }
 
-    /* Dropdown — now anchored below the overlay bar */
+    /* Dropdown — desktop: anchored to search wrapper; mobile: fixed centered */
     .search-dropdown {
-      position: fixed;
-      top: 61px;
-      left: 0;
+      position: absolute;
+      top: calc(100% + 10px);
       right: 0;
-      width: 100%;
-      max-width: 680px;
-      margin: 0 auto;
-      left: 50%;
-      transform: translateX(-50%) translateY(-6px);
-      max-height: 60vh;
+      width: 380px;
+      max-height: 480px;
       overflow-y: auto;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 14px;
       box-shadow: 0 8px 48px rgba(0, 0, 0, 0.16);
-      z-index: 199;
+      z-index: 999;
       opacity: 0;
       pointer-events: none;
+      transform: translateY(-6px);
       transition: opacity 0.22s ease, transform 0.22s ease;
     }
 
     .search-dropdown.visible {
       opacity: 1;
       pointer-events: all;
-      transform: translateX(-50%) translateY(0);
+      transform: translateY(0);
     }
 
     /* Scrim behind dropdown */
@@ -2373,11 +2441,30 @@
     }
 
     @media (max-width: 600px) {
+      /* Show overlay bar on mobile, hide desktop input */
+      .search-overlay-bar {
+        display: flex;
+      }
+
+      .search-input-wrap {
+        display: none !important;
+      }
+
+      /* Dropdown on mobile: fixed, centered below overlay bar */
       .search-dropdown {
+        position: fixed;
         top: 62px;
+        left: 12px;
+        right: 12px;
+        width: auto;
         max-height: 55vh;
-        width: calc(100vw - 24px);
         border-radius: 12px;
+        transform: translateY(-6px);
+        z-index: 199;
+      }
+
+      .search-dropdown.visible {
+        transform: translateY(0);
       }
 
       .svp-header {
@@ -2579,6 +2666,13 @@
           <span class="search-icon">&#9906;</span>
           <span>Search</span>
         </button>
+        <!-- Desktop inline input -->
+        <div class="search-input-wrap" id="searchInputWrap">
+          <input type="text" id="searchInputDesktop" placeholder="Search products…" autocomplete="off" spellcheck="false" />
+          <button class="search-input-clear" id="searchClearBtnDesktop" aria-label="Clear search">✕</button>
+        </div>
+        <!-- Shared dropdown (desktop: absolute; mobile: fixed) -->
+        <div class="search-dropdown" id="searchDropdown"></div>
       </div>
 
       <a href="saved.html" class="saved-nav-btn" aria-label="Saved Pins">
@@ -3974,7 +4068,6 @@
 
     (function initSearch() {
 
-      // ── Build flat product index ──
       const PLATFORM_MAP = {
         shopee_best_1: 'Shopee', shopee_best_2: 'Shopee',
         shopee_fashion: 'Shopee', shopee_electronics: 'Shopee',
@@ -4005,13 +4098,9 @@
           const category = CATEGORY_MAP[key] || '';
           (PRODUCTS[key] || []).forEach(p => {
             PRODUCT_INDEX.push({
-              title: p.title,
-              alt: p.alt || '',
-              href: p.href,
-              img: p.img,
-              imgClass: p.imgClass || '',
-              platform,
-              category,
+              title: p.title, alt: p.alt || '',
+              href: p.href, img: p.img, imgClass: p.imgClass || '',
+              platform, category,
               searchText: [p.title, p.alt, platform, category].join(' ').toLowerCase()
             });
           });
@@ -4019,103 +4108,146 @@
       }
 
       function queryProducts(q) {
-        if (!q || q.trim().length < 1) return [];
+        if (!q || !q.trim()) return [];
         const terms = q.toLowerCase().trim().split(/\s+/);
         return PRODUCT_INDEX.filter(p => terms.every(t => p.searchText.includes(t)));
       }
 
-      function platformClass(platform) {
-        if (platform === 'Shopee') return 'srp-shopee';
-        if (platform === 'Amazon') return 'srp-amazon';
+      function platformClass(p) {
+        if (p === 'Shopee') return 'srp-shopee';
+        if (p === 'Amazon') return 'srp-amazon';
         return 'srp-shein';
       }
 
-      // ── DOM refs ──
-      const toggleBtn     = document.getElementById('searchToggleBtn');
-      const overlayBar    = document.getElementById('searchOverlayBar');
-      const input         = document.getElementById('searchInput');
-      const clearBtn      = document.getElementById('searchClearBtn');
-      const cancelBtn     = document.getElementById('searchCancelBtn');
-      const dropdown      = document.getElementById('searchDropdown');
-      const scrim         = document.getElementById('searchScrim');
-      const headerEl      = document.querySelector('header');
+      function isMobile() { return window.innerWidth <= 600; }
 
-      const virtualPage   = document.getElementById('searchVirtualPage');
-      const svpBackBtn    = document.getElementById('svpBackBtn');
-      const svpInput      = document.getElementById('svpSearchInput');
-      const svpGrid       = document.getElementById('svpGrid');
-      const svpCount      = document.getElementById('svpCount');
+      // ── DOM ──
+      const toggleBtn       = document.getElementById('searchToggleBtn');
+      const inputWrapDesk   = document.getElementById('searchInputWrap');
+      const inputDesk       = document.getElementById('searchInputDesktop');
+      const clearDesk       = document.getElementById('searchClearBtnDesktop');
+      const overlayBar      = document.getElementById('searchOverlayBar');
+      const inputMob        = document.getElementById('searchInput');
+      const clearMob        = document.getElementById('searchClearBtn');
+      const cancelMob       = document.getElementById('searchCancelBtn');
+      const dropdown        = document.getElementById('searchDropdown');
+      const scrim           = document.getElementById('searchScrim');
+      const headerEl        = document.querySelector('header');
 
-      let searchOpen = false;
+      const virtualPage     = document.getElementById('searchVirtualPage');
+      const svpBackBtn      = document.getElementById('svpBackBtn');
+      const svpInput        = document.getElementById('svpSearchInput');
+      const svpGrid         = document.getElementById('svpGrid');
+      const svpCount        = document.getElementById('svpCount');
 
-      // ── Open / close overlay ──
-      function openSearch() {
-        if (searchOpen) return;
-        searchOpen = true;
-        overlayBar.classList.add('open');
-        headerEl.classList.add('header-hidden');
-        setTimeout(() => { input.focus(); }, 120);
+      let desktopOpen = false;
+
+      // ── DESKTOP open/close ──
+      function openDesktop() {
+        if (desktopOpen) {
+          const q = inputDesk.value.trim();
+          if (q) { openVirtualPage(q); return; }
+          closeDesktop(); return;
+        }
+        desktopOpen = true;
+        inputWrapDesk.classList.add('open');
+        setTimeout(() => inputDesk.focus(), 40);
       }
 
-      function closeSearch() {
-        if (!searchOpen) return;
-        searchOpen = false;
+      function closeDesktop() {
+        desktopOpen = false;
+        inputWrapDesk.classList.remove('open');
+        hideDropdown();
+        inputDesk.value = '';
+        clearDesk.classList.remove('visible');
+      }
+
+      // ── MOBILE open/close ──
+      function openMobile() {
+        overlayBar.classList.add('open');
+        headerEl.classList.add('header-hidden');
+        setTimeout(() => inputMob.focus(), 120);
+      }
+
+      function closeMobileSearch() {
         overlayBar.classList.remove('open');
         headerEl.classList.remove('header-hidden');
         hideDropdown();
-        input.value = '';
-        clearBtn.classList.remove('visible');
+        inputMob.value = '';
+        clearMob.classList.remove('visible');
       }
 
-      toggleBtn.addEventListener('click', openSearch);
-      cancelBtn.addEventListener('click', closeSearch);
-      scrim.addEventListener('click', closeSearch);
+      // ── Toggle btn routes by viewport ──
+      toggleBtn.addEventListener('click', () => {
+        if (isMobile()) openMobile(); else openDesktop();
+      });
 
-      // ── Input events ──
-      input.addEventListener('input', () => {
-        const q = input.value;
-        clearBtn.classList.toggle('visible', q.length > 0);
-        if (q.trim().length > 0) {
-          renderDropdown(queryProducts(q));
-        } else {
-          hideDropdown();
+      cancelMob.addEventListener('click', closeMobileSearch);
+      scrim.addEventListener('click', () => {
+        if (isMobile()) closeMobileSearch(); else closeDesktop();
+      });
+
+      // Click outside on desktop
+      document.addEventListener('click', e => {
+        if (!isMobile() && desktopOpen) {
+          const wrapper = document.getElementById('searchWrapper');
+          if (!wrapper.contains(e.target)) closeDesktop();
         }
       });
 
-      input.addEventListener('keydown', e => {
-        if (e.key === 'Enter') {
-          const q = input.value.trim();
-          if (q.length > 0) openVirtualPage(q);
-        }
-        if (e.key === 'Escape') closeSearch();
+      // ── Desktop input events ──
+      inputDesk.addEventListener('input', () => {
+        const q = inputDesk.value;
+        clearDesk.classList.toggle('visible', q.length > 0);
+        q.trim() ? renderDropdown(queryProducts(q)) : hideDropdown();
       });
 
-      clearBtn.addEventListener('click', () => {
-        input.value = '';
-        clearBtn.classList.remove('visible');
+      inputDesk.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { const q = inputDesk.value.trim(); if (q) openVirtualPage(q); }
+        if (e.key === 'Escape') closeDesktop();
+      });
+
+      clearDesk.addEventListener('click', () => {
+        inputDesk.value = '';
+        clearDesk.classList.remove('visible');
         hideDropdown();
-        input.focus();
+        inputDesk.focus();
+      });
+
+      // ── Mobile input events ──
+      inputMob.addEventListener('input', () => {
+        const q = inputMob.value;
+        clearMob.classList.toggle('visible', q.length > 0);
+        q.trim() ? renderDropdown(queryProducts(q)) : hideDropdown();
+      });
+
+      inputMob.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { const q = inputMob.value.trim(); if (q) openVirtualPage(q); }
+        if (e.key === 'Escape') closeMobileSearch();
+      });
+
+      clearMob.addEventListener('click', () => {
+        inputMob.value = '';
+        clearMob.classList.remove('visible');
+        hideDropdown();
+        inputMob.focus();
       });
 
       // ── Dropdown ──
       function renderDropdown(results) {
-        if (results.length === 0) {
-          dropdown.innerHTML = `
-            <div class="search-dropdown-header">No results</div>
-            <div class="search-no-results">Nothing found. Try a different keyword.</div>`;
-        } else {
-          dropdown.innerHTML = `
-            <div class="search-dropdown-header">${results.length} result${results.length !== 1 ? 's' : ''}</div>
-            ${results.map(r => `
-              <a class="search-result-item" href="${r.href}" target="_blank" rel="noopener nofollow">
-                <img class="search-result-img" src="${r.img}" alt="${r.alt}" loading="lazy" />
-                <div class="search-result-info">
-                  <span class="search-result-title">${r.title}</span>
-                  <span class="search-result-platform ${platformClass(r.platform)}">${r.platform}${r.category ? ' · ' + r.category : ''}</span>
-                </div>
-                <span class="search-result-arrow">→</span>
-              </a>`).join('')}`;
-        }
+        dropdown.innerHTML = results.length === 0
+          ? `<div class="search-dropdown-header">No results</div>
+             <div class="search-no-results">Nothing found. Try a different keyword.</div>`
+          : `<div class="search-dropdown-header">${results.length} result${results.length !== 1 ? 's' : ''}</div>
+             ${results.map(r => `
+               <a class="search-result-item" href="${r.href}" target="_blank" rel="noopener nofollow">
+                 <img class="search-result-img" src="${r.img}" alt="${r.alt}" loading="lazy" />
+                 <div class="search-result-info">
+                   <span class="search-result-title">${r.title}</span>
+                   <span class="search-result-platform ${platformClass(r.platform)}">${r.platform}${r.category ? ' · ' + r.category : ''}</span>
+                 </div>
+                 <span class="search-result-arrow">→</span>
+               </a>`).join('')}`;
         showDropdown();
       }
 
@@ -4136,7 +4268,7 @@
         virtualPage.classList.add('open');
         virtualPage.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
-        closeSearch();
+        if (isMobile()) closeMobileSearch(); else closeDesktop();
         setTimeout(() => svpInput.focus(), 80);
       }
 
@@ -4152,43 +4284,34 @@
           ? `<strong>${results.length}</strong> result${results.length !== 1 ? 's' : ''} for "${q.trim()}"`
           : `<strong>${PRODUCT_INDEX.length}</strong> total products`;
 
-        if (results.length === 0) {
-          svpGrid.innerHTML = `
-            <div class="svp-empty" style="grid-column:1/-1">
-              <div class="svp-empty-icon">&#9906;</div>
-              <p class="svp-empty-title">No results found</p>
-              <p class="svp-empty-sub">Try searching "bag", "shopee", "fashion", or "Amazon".</p>
-            </div>`;
-          return;
-        }
-
-        svpGrid.innerHTML = results.map(r => `
-          <a class="card" href="${r.href}" target="_blank" rel="noopener nofollow">
-            <img class="card-img${r.imgClass ? ' ' + r.imgClass : ''}" src="${r.img}" alt="${r.alt}" loading="lazy" />
-            <div class="card-body">
-              <h3>${r.title}</h3>
-              <div class="card-footer">
-                <span class="card-cta">Check Price <span>→</span></span>
-                <span class="search-result-platform ${platformClass(r.platform)}" style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">${r.platform}</span>
-              </div>
-            </div>
-          </a>`).join('');
+        svpGrid.innerHTML = results.length === 0
+          ? `<div class="svp-empty" style="grid-column:1/-1">
+               <div class="svp-empty-icon">&#9906;</div>
+               <p class="svp-empty-title">No results found</p>
+               <p class="svp-empty-sub">Try "bag", "shopee", "fashion", or "Amazon".</p>
+             </div>`
+          : results.map(r => `
+              <a class="card" href="${r.href}" target="_blank" rel="noopener nofollow">
+                <img class="card-img${r.imgClass ? ' ' + r.imgClass : ''}" src="${r.img}" alt="${r.alt}" loading="lazy" />
+                <div class="card-body">
+                  <h3>${r.title}</h3>
+                  <div class="card-footer">
+                    <span class="card-cta">Check Price <span>→</span></span>
+                    <span class="search-result-platform ${platformClass(r.platform)}" style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">${r.platform}</span>
+                  </div>
+                </div>
+              </a>`).join('');
       }
 
       svpBackBtn.addEventListener('click', closeVirtualPage);
-
-      svpInput.addEventListener('input', () => {
-        renderVirtualGrid(svpInput.value);
-      });
-
-      svpInput.addEventListener('keydown', e => {
-        if (e.key === 'Escape') closeVirtualPage();
-      });
+      svpInput.addEventListener('input', () => renderVirtualGrid(svpInput.value));
+      svpInput.addEventListener('keydown', e => { if (e.key === 'Escape') closeVirtualPage(); });
 
       document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
           if (virtualPage.classList.contains('open')) closeVirtualPage();
-          else if (searchOpen) closeSearch();
+          else if (isMobile()) closeMobileSearch();
+          else closeDesktop();
         }
       });
 
@@ -4202,42 +4325,46 @@
     // ══════════════════════════════════════════════════════════════
 
     (function initNavScroll() {
-      const headerEl   = document.querySelector('header');
-      let lastY        = window.scrollY;
-      let ticking      = false;
-      let hideTimer    = null;
+      const headerEl = document.querySelector('header');
+      let lastY      = window.scrollY;
+      let ticking    = false;
+      let accDelta   = 0;
 
-      function onScroll() {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            const currentY  = window.scrollY;
-            const diff      = currentY - lastY;
+      const HIDE_THRESHOLD = 40;   // accumulated px scrolled down before hiding
+      const SHOW_THRESHOLD = 20;   // accumulated px scrolled up before showing
 
-            // Always show at very top
-            if (currentY < 60) {
-              headerEl.classList.remove('header-hidden');
-              lastY   = currentY;
-              ticking = false;
-              return;
-            }
+      window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const currentY = window.scrollY;
+          const diff     = currentY - lastY;
 
-            // Scrolling DOWN more than 6px → hide
-            if (diff > 6) {
-              headerEl.classList.add('header-hidden');
-            }
-            // Scrolling UP more than 4px → show
-            else if (diff < -4) {
-              headerEl.classList.remove('header-hidden');
-            }
+          // Always show when at very top
+          if (currentY <= 0) {
+            headerEl.classList.remove('header-hidden');
+            accDelta = 0;
+            lastY    = currentY;
+            ticking  = false;
+            return;
+          }
 
-            lastY   = currentY;
-            ticking = false;
-          });
-          ticking = true;
-        }
-      }
+          accDelta += diff;
 
-      window.addEventListener('scroll', onScroll, { passive: true });
+          if (accDelta > HIDE_THRESHOLD) {
+            // Scrolled down enough → hide
+            headerEl.classList.add('header-hidden');
+            accDelta = 0;
+          } else if (accDelta < -SHOW_THRESHOLD) {
+            // Scrolled up enough → show
+            headerEl.classList.remove('header-hidden');
+            accDelta = 0;
+          }
+
+          lastY   = currentY;
+          ticking = false;
+        });
+      }, { passive: true });
     })();
 
 // ── FAQ ACCORDION ──
