@@ -1925,11 +1925,23 @@
       }
     }
 
-      /* ============================================================
+    /* ============================================================
        SEARCH SYSTEM
     ============================================================ */
+
+    /* Header hide/show on scroll */
+    header {
+      transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+                  background 0.35s, color 0.35s;
+      will-change: transform;
+    }
+
+    header.header-hidden {
+      transform: translateY(-100%);
+    }
+
     .search-wrapper {
-      position: relative;
+      position: static;
       display: flex;
       align-items: center;
     }
@@ -1951,6 +1963,7 @@
       cursor: pointer;
       transition: color 0.2s ease, transform 0.18s ease;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .search-toggle-btn:hover {
@@ -1967,53 +1980,75 @@
       line-height: 1;
     }
 
-    /* Expandable input */
-    .search-input-wrap {
-      position: absolute;
+    /* Full-width search overlay bar (replaces expanding input) */
+    .search-overlay-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
       right: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 0;
-      overflow: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transition: width 0.32s cubic-bezier(0.4, 0, 0.2, 1),
-                  opacity 0.22s ease;
+      z-index: 200;
       background: var(--card);
-      border: 1.5px solid var(--border);
-      border-radius: 999px;
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 0;
-      box-shadow: var(--shadow);
+      gap: 12px;
+      padding: 10px 20px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      transform: translateY(-110%);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  opacity 0.25s ease;
+      pointer-events: none;
     }
 
-    .search-input-wrap.open {
-      width: 280px;
+    .search-overlay-bar.open {
+      transform: translateY(0);
       opacity: 1;
       pointer-events: all;
     }
 
-    .search-input-wrap input {
+    .search-overlay-input-wrap {
       flex: 1;
-      height: 36px;
-      padding: 0 14px 0 16px;
-      border: none;
-      background: transparent;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.85rem;
-      color: var(--text);
-      outline: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg2);
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      padding: 0 16px;
+      height: 40px;
+      transition: border-color 0.2s;
     }
 
-    .search-input-wrap input::placeholder {
+    .search-overlay-bar.open .search-overlay-input-wrap {
+      border-color: var(--accent);
+    }
+
+    .search-overlay-icon {
+      font-size: 0.95rem;
       color: var(--muted);
-      font-weight: 400;
+      flex-shrink: 0;
+      line-height: 1;
     }
 
-    .search-input-clear {
-      width: 30px;
-      height: 30px;
+    .search-overlay-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      color: var(--text);
+      min-width: 0;
+    }
+
+    .search-overlay-input::placeholder {
+      color: var(--muted);
+    }
+
+    .search-overlay-clear {
+      width: 26px;
+      height: 26px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
@@ -2022,47 +2057,86 @@
       border: none;
       cursor: pointer;
       color: var(--muted);
-      font-size: 0.85rem;
+      font-size: 0.78rem;
       border-radius: 50%;
-      margin-right: 3px;
       transition: color 0.18s, background 0.18s;
       opacity: 0;
       pointer-events: none;
     }
 
-    .search-input-clear.visible {
+    .search-overlay-clear.visible {
       opacity: 1;
       pointer-events: all;
     }
 
-    .search-input-clear:hover {
+    .search-overlay-clear:hover {
       color: var(--accent);
       background: var(--bg2);
     }
 
-    /* Dropdown */
+    .search-overlay-cancel {
+      flex-shrink: 0;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      padding: 0 4px;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .search-overlay-cancel:hover {
+      color: var(--accent);
+    }
+
+    /* Dropdown — now anchored below the overlay bar */
     .search-dropdown {
-      position: absolute;
-      top: calc(100% + 10px);
+      position: fixed;
+      top: 61px;
+      left: 0;
       right: 0;
-      width: 380px;
-      max-height: 480px;
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+      left: 50%;
+      transform: translateX(-50%) translateY(-6px);
+      max-height: 60vh;
       overflow-y: auto;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 14px;
       box-shadow: 0 8px 48px rgba(0, 0, 0, 0.16);
-      z-index: 999;
+      z-index: 199;
       opacity: 0;
       pointer-events: none;
-      transform: translateY(-6px);
       transition: opacity 0.22s ease, transform 0.22s ease;
     }
 
     .search-dropdown.visible {
       opacity: 1;
       pointer-events: all;
-      transform: translateY(0);
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Scrim behind dropdown */
+    .search-scrim {
+      position: fixed;
+      inset: 0;
+      z-index: 198;
+      background: rgba(0,0,0,0.28);
+      backdrop-filter: blur(2px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .search-scrim.visible {
+      opacity: 1;
+      pointer-events: all;
     }
 
     .search-dropdown-header {
@@ -2091,7 +2165,8 @@
       border-bottom: none;
     }
 
-    .search-result-item:hover {
+    .search-result-item:hover,
+    .search-result-item:active {
       background: var(--bg2);
     }
 
@@ -2297,15 +2372,12 @@
       color: var(--muted);
     }
 
-    /* ── MOBILE SEARCH ADJUSTMENTS ── */
     @media (max-width: 600px) {
-      .search-input-wrap.open {
-        width: 200px;
-      }
-
       .search-dropdown {
-        width: calc(100vw - 32px);
-        right: -16px;
+        top: 62px;
+        max-height: 55vh;
+        width: calc(100vw - 24px);
+        border-radius: 12px;
       }
 
       .svp-header {
@@ -2507,11 +2579,6 @@
           <span class="search-icon">&#9906;</span>
           <span>Search</span>
         </button>
-        <div class="search-input-wrap" id="searchInputWrap">
-          <input type="text" id="searchInput" placeholder="Search products…" autocomplete="off" spellcheck="false" />
-          <button class="search-input-clear" id="searchClearBtn" aria-label="Clear search">✕</button>
-        </div>
-        <div class="search-dropdown" id="searchDropdown"></div>
       </div>
 
       <a href="saved.html" class="saved-nav-btn" aria-label="Saved Pins">
@@ -2525,6 +2592,18 @@
     </div>
 
     </header>
+
+  <!-- Search overlay bar (full-width, fixed, above header) -->
+  <div class="search-overlay-bar" id="searchOverlayBar" role="search">
+    <div class="search-overlay-input-wrap">
+      <span class="search-overlay-icon">&#9906;</span>
+      <input type="text" class="search-overlay-input" id="searchInput" placeholder="Search products, platforms, categories…" autocomplete="off" spellcheck="false" />
+      <button class="search-overlay-clear" id="searchClearBtn" aria-label="Clear">✕</button>
+    </div>
+    <button class="search-overlay-cancel" id="searchCancelBtn">Cancel</button>
+  </div>
+  <div class="search-scrim" id="searchScrim"></div>
+  <div class="search-dropdown" id="searchDropdown"></div>
 
   <!-- ============================================================
        HERO
@@ -3889,7 +3968,7 @@
   renderCards('amazon-health',       PRODUCTS.amazon_health);
   renderCards('amazon-groceries',    PRODUCTS.amazon_groceries);
 
-      // ══════════════════════════════════════════════════════════════
+   // ══════════════════════════════════════════════════════════════
     //  SEARCH SYSTEM
     // ══════════════════════════════════════════════════════════════
 
@@ -3933,21 +4012,16 @@
               imgClass: p.imgClass || '',
               platform,
               category,
-              searchText: [
-                p.title, p.alt, platform, category
-              ].join(' ').toLowerCase()
+              searchText: [p.title, p.alt, platform, category].join(' ').toLowerCase()
             });
           });
         });
       }
 
-      function queryProducts(q, limit) {
+      function queryProducts(q) {
         if (!q || q.trim().length < 1) return [];
         const terms = q.toLowerCase().trim().split(/\s+/);
-        const results = PRODUCT_INDEX.filter(p =>
-          terms.every(t => p.searchText.includes(t))
-        );
-        return limit ? results.slice(0, limit) : results;
+        return PRODUCT_INDEX.filter(p => terms.every(t => p.searchText.includes(t)));
       }
 
       function platformClass(platform) {
@@ -3957,50 +4031,45 @@
       }
 
       // ── DOM refs ──
-      const wrapper      = document.getElementById('searchWrapper');
-      const toggleBtn    = document.getElementById('searchToggleBtn');
-      const inputWrap    = document.getElementById('searchInputWrap');
-      const input        = document.getElementById('searchInput');
-      const clearBtn     = document.getElementById('searchClearBtn');
-      const dropdown     = document.getElementById('searchDropdown');
+      const toggleBtn     = document.getElementById('searchToggleBtn');
+      const overlayBar    = document.getElementById('searchOverlayBar');
+      const input         = document.getElementById('searchInput');
+      const clearBtn      = document.getElementById('searchClearBtn');
+      const cancelBtn     = document.getElementById('searchCancelBtn');
+      const dropdown      = document.getElementById('searchDropdown');
+      const scrim         = document.getElementById('searchScrim');
+      const headerEl      = document.querySelector('header');
 
-      const virtualPage  = document.getElementById('searchVirtualPage');
-      const svpBackBtn   = document.getElementById('svpBackBtn');
-      const svpInput     = document.getElementById('svpSearchInput');
-      const svpGrid      = document.getElementById('svpGrid');
-      const svpCount     = document.getElementById('svpCount');
+      const virtualPage   = document.getElementById('searchVirtualPage');
+      const svpBackBtn    = document.getElementById('svpBackBtn');
+      const svpInput      = document.getElementById('svpSearchInput');
+      const svpGrid       = document.getElementById('svpGrid');
+      const svpCount      = document.getElementById('svpCount');
 
       let searchOpen = false;
-      let dropdownVisible = false;
 
-      // ── Toggle search bar ──
-      toggleBtn.addEventListener('click', () => {
-        if (!searchOpen) {
-          openSearch();
-        } else {
-          // If input has value → open virtual page
-          const q = input.value.trim();
-          if (q.length > 0) {
-            openVirtualPage(q);
-          } else {
-            closeSearch();
-          }
-        }
-      });
-
+      // ── Open / close overlay ──
       function openSearch() {
+        if (searchOpen) return;
         searchOpen = true;
-        inputWrap.classList.add('open');
-        setTimeout(() => input.focus(), 50);
+        overlayBar.classList.add('open');
+        headerEl.classList.add('header-hidden');
+        setTimeout(() => { input.focus(); }, 120);
       }
 
       function closeSearch() {
+        if (!searchOpen) return;
         searchOpen = false;
-        inputWrap.classList.remove('open');
+        overlayBar.classList.remove('open');
+        headerEl.classList.remove('header-hidden');
         hideDropdown();
         input.value = '';
         clearBtn.classList.remove('visible');
       }
+
+      toggleBtn.addEventListener('click', openSearch);
+      cancelBtn.addEventListener('click', closeSearch);
+      scrim.addEventListener('click', closeSearch);
 
       // ── Input events ──
       input.addEventListener('input', () => {
@@ -4028,13 +4097,6 @@
         input.focus();
       });
 
-      // Click outside to close
-      document.addEventListener('click', e => {
-        if (!wrapper.contains(e.target)) {
-          closeSearch();
-        }
-      });
-
       // ── Dropdown ──
       function renderDropdown(results) {
         if (results.length === 0) {
@@ -4043,7 +4105,7 @@
             <div class="search-no-results">Nothing found. Try a different keyword.</div>`;
         } else {
           dropdown.innerHTML = `
-            <div class="search-dropdown-header">${results.length} result${results.length > 1 ? 's' : ''}</div>
+            <div class="search-dropdown-header">${results.length} result${results.length !== 1 ? 's' : ''}</div>
             ${results.map(r => `
               <a class="search-result-item" href="${r.href}" target="_blank" rel="noopener nofollow">
                 <img class="search-result-img" src="${r.img}" alt="${r.alt}" loading="lazy" />
@@ -4059,12 +4121,12 @@
 
       function showDropdown() {
         dropdown.classList.add('visible');
-        dropdownVisible = true;
+        scrim.classList.add('visible');
       }
 
       function hideDropdown() {
         dropdown.classList.remove('visible');
-        dropdownVisible = false;
+        scrim.classList.remove('visible');
       }
 
       // ── Virtual Page ──
@@ -4124,15 +4186,58 @@
       });
 
       document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && virtualPage.classList.contains('open')) {
-          closeVirtualPage();
+        if (e.key === 'Escape') {
+          if (virtualPage.classList.contains('open')) closeVirtualPage();
+          else if (searchOpen) closeSearch();
         }
       });
 
-      // ── Build index after products are rendered ──
-      // Products are rendered synchronously above, so index builds immediately
       buildIndex();
 
+    })();
+
+
+    // ══════════════════════════════════════════════════════════════
+    //  AUTO-HIDE / SHOW NAVBAR ON SCROLL
+    // ══════════════════════════════════════════════════════════════
+
+    (function initNavScroll() {
+      const headerEl   = document.querySelector('header');
+      let lastY        = window.scrollY;
+      let ticking      = false;
+      let hideTimer    = null;
+
+      function onScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            const currentY  = window.scrollY;
+            const diff      = currentY - lastY;
+
+            // Always show at very top
+            if (currentY < 60) {
+              headerEl.classList.remove('header-hidden');
+              lastY   = currentY;
+              ticking = false;
+              return;
+            }
+
+            // Scrolling DOWN more than 6px → hide
+            if (diff > 6) {
+              headerEl.classList.add('header-hidden');
+            }
+            // Scrolling UP more than 4px → show
+            else if (diff < -4) {
+              headerEl.classList.remove('header-hidden');
+            }
+
+            lastY   = currentY;
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
     })();
 
 // ── FAQ ACCORDION ──
