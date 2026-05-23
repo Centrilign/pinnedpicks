@@ -2190,12 +2190,12 @@
       transform: translateY(0);
     }
 
-   /* Scrim — mobile only, NO backdrop-filter (causes blur bleed) */
+   /* Scrim — mobile only */
     .search-scrim {
       position: fixed;
       inset: 0;
-      z-index: 150;
-      background: rgba(0, 0, 0, 0.32);
+      z-index: 160;
+      background: rgba(0, 0, 0, 0.38);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.28s ease;
@@ -2460,13 +2460,16 @@
       .search-dropdown {
         position: fixed;
         top: 62px;
-        left: 12px;
-        right: 12px;
+        left: 10px;
+        right: 10px;
         width: auto;
         max-height: 55vh;
-        border-radius: 12px;
+        border-radius: 16px;
         transform: translateY(-6px);
         z-index: 99999;
+        background: var(--card) !important;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.28), 0 2px 8px rgba(0, 0, 0, 0.12);
+        isolation: isolate;
       }
 
       .search-dropdown.visible {
