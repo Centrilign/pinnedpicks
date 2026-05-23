@@ -2350,6 +2350,19 @@
     </nav>
 
     <div class="nav-actions">
+      <!-- Search -->
+      <div class="search-wrapper" id="searchWrapper">
+        <button class="search-toggle-btn" id="searchToggleBtn" aria-label="Search products">
+          <span class="search-icon">&#9906;</span>
+          <span>Search</span>
+        </button>
+        <div class="search-input-wrap" id="searchInputWrap">
+          <input type="text" id="searchInput" placeholder="Search products…" autocomplete="off" spellcheck="false" />
+          <button class="search-input-clear" id="searchClearBtn" aria-label="Clear search">✕</button>
+        </div>
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+
       <a href="saved.html" class="saved-nav-btn" aria-label="Saved Pins">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
         Saved
@@ -2803,6 +2816,26 @@
     </div>
   </div>
 
+<!-- ============================================================
+       VIRTUAL SEARCH PAGE
+  ============================================================ -->
+  <div class="search-virtual-page" id="searchVirtualPage" aria-hidden="true">
+    <div class="svp-header">
+      <button class="svp-back-btn" id="svpBackBtn" aria-label="Back">
+        ← <span>Back</span>
+      </button>
+      <div class="svp-search-bar">
+        <span class="svp-search-icon">&#9906;</span>
+        <input type="text" class="svp-search-input" id="svpSearchInput" placeholder="Search products…" autocomplete="off" />
+      </div>
+    </div>
+    <div class="svp-body">
+      <div class="svp-meta">
+        <span class="svp-count" id="svpCount"></span>
+      </div>
+      <div class="svp-grid" id="svpGrid"></div>
+    </div>
+  </div>
   <!-- ============================================================
        JAVASCRIPT
   ============================================================ -->
@@ -3639,6 +3672,251 @@
   renderCards('amazon-health',       PRODUCTS.amazon_health);
   renderCards('amazon-groceries',    PRODUCTS.amazon_groceries);
 
+      // ══════════════════════════════════════════════════════════════
+    //  SEARCH SYSTEM
+    // ══════════════════════════════════════════════════════════════
+
+    (function initSearch() {
+
+      // ── Build flat product index ──
+      const PLATFORM_MAP = {
+        shopee_best_1: 'Shopee', shopee_best_2: 'Shopee',
+        shopee_fashion: 'Shopee', shopee_electronics: 'Shopee',
+        shopee_health: 'Shopee', shopee_groceries: 'Shopee',
+        shein_best_1: 'SHEIN', shein_best_2: 'SHEIN',
+        shein_mens: 'SHEIN', shein_womens: 'SHEIN',
+        shein_decor: 'SHEIN', shein_accessories: 'SHEIN',
+        amazon_best_1: 'Amazon', amazon_best_2: 'Amazon',
+        amazon_fashion: 'Amazon', amazon_electronics: 'Amazon',
+        amazon_health: 'Amazon', amazon_groceries: 'Amazon'
+      };
+
+      const CATEGORY_MAP = {
+        shopee_fashion: 'Fashion', shopee_electronics: 'Electronics',
+        shopee_health: 'Health & Beauty', shopee_groceries: 'Groceries',
+        shein_mens: "Men's Fashion", shein_womens: "Women's Fashion",
+        shein_decor: 'Decor', shein_accessories: 'Accessories',
+        amazon_fashion: 'Fashion', amazon_electronics: 'Electronics',
+        amazon_health: 'Health & Beauty', amazon_groceries: 'Groceries'
+      };
+
+      let PRODUCT_INDEX = [];
+
+      function buildIndex() {
+        PRODUCT_INDEX = [];
+        Object.keys(PRODUCTS).forEach(key => {
+          const platform = PLATFORM_MAP[key] || '';
+          const category = CATEGORY_MAP[key] || '';
+          (PRODUCTS[key] || []).forEach(p => {
+            PRODUCT_INDEX.push({
+              title: p.title,
+              alt: p.alt || '',
+              href: p.href,
+              img: p.img,
+              imgClass: p.imgClass || '',
+              platform,
+              category,
+              searchText: [
+                p.title, p.alt, platform, category
+              ].join(' ').toLowerCase()
+            });
+          });
+        });
+      }
+
+      function queryProducts(q, limit) {
+        if (!q || q.trim().length < 1) return [];
+        const terms = q.toLowerCase().trim().split(/\s+/);
+        const results = PRODUCT_INDEX.filter(p =>
+          terms.every(t => p.searchText.includes(t))
+        );
+        return limit ? results.slice(0, limit) : results;
+      }
+
+      function platformClass(platform) {
+        if (platform === 'Shopee') return 'srp-shopee';
+        if (platform === 'Amazon') return 'srp-amazon';
+        return 'srp-shein';
+      }
+
+      // ── DOM refs ──
+      const wrapper      = document.getElementById('searchWrapper');
+      const toggleBtn    = document.getElementById('searchToggleBtn');
+      const inputWrap    = document.getElementById('searchInputWrap');
+      const input        = document.getElementById('searchInput');
+      const clearBtn     = document.getElementById('searchClearBtn');
+      const dropdown     = document.getElementById('searchDropdown');
+
+      const virtualPage  = document.getElementById('searchVirtualPage');
+      const svpBackBtn   = document.getElementById('svpBackBtn');
+      const svpInput     = document.getElementById('svpSearchInput');
+      const svpGrid      = document.getElementById('svpGrid');
+      const svpCount     = document.getElementById('svpCount');
+
+      let searchOpen = false;
+      let dropdownVisible = false;
+
+      // ── Toggle search bar ──
+      toggleBtn.addEventListener('click', () => {
+        if (!searchOpen) {
+          openSearch();
+        } else {
+          // If input has value → open virtual page
+          const q = input.value.trim();
+          if (q.length > 0) {
+            openVirtualPage(q);
+          } else {
+            closeSearch();
+          }
+        }
+      });
+
+      function openSearch() {
+        searchOpen = true;
+        inputWrap.classList.add('open');
+        setTimeout(() => input.focus(), 50);
+      }
+
+      function closeSearch() {
+        searchOpen = false;
+        inputWrap.classList.remove('open');
+        hideDropdown();
+        input.value = '';
+        clearBtn.classList.remove('visible');
+      }
+
+      // ── Input events ──
+      input.addEventListener('input', () => {
+        const q = input.value;
+        clearBtn.classList.toggle('visible', q.length > 0);
+        if (q.trim().length > 0) {
+          renderDropdown(queryProducts(q, 10));
+        } else {
+          hideDropdown();
+        }
+      });
+
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          const q = input.value.trim();
+          if (q.length > 0) openVirtualPage(q);
+        }
+        if (e.key === 'Escape') closeSearch();
+      });
+
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        clearBtn.classList.remove('visible');
+        hideDropdown();
+        input.focus();
+      });
+
+      // Click outside to close
+      document.addEventListener('click', e => {
+        if (!wrapper.contains(e.target)) {
+          closeSearch();
+        }
+      });
+
+      // ── Dropdown ──
+      function renderDropdown(results) {
+        if (results.length === 0) {
+          dropdown.innerHTML = `
+            <div class="search-dropdown-header">No results</div>
+            <div class="search-no-results">Nothing found. Try a different keyword.</div>`;
+        } else {
+          dropdown.innerHTML = `
+            <div class="search-dropdown-header">${results.length} result${results.length > 1 ? 's' : ''}</div>
+            ${results.map(r => `
+              <a class="search-result-item" href="${r.href}" target="_blank" rel="noopener nofollow">
+                <img class="search-result-img" src="${r.img}" alt="${r.alt}" loading="lazy" />
+                <div class="search-result-info">
+                  <span class="search-result-title">${r.title}</span>
+                  <span class="search-result-platform ${platformClass(r.platform)}">${r.platform}${r.category ? ' · ' + r.category : ''}</span>
+                </div>
+                <span class="search-result-arrow">→</span>
+              </a>`).join('')}`;
+        }
+        showDropdown();
+      }
+
+      function showDropdown() {
+        dropdown.classList.add('visible');
+        dropdownVisible = true;
+      }
+
+      function hideDropdown() {
+        dropdown.classList.remove('visible');
+        dropdownVisible = false;
+      }
+
+      // ── Virtual Page ──
+      function openVirtualPage(q) {
+        svpInput.value = q;
+        renderVirtualGrid(q);
+        virtualPage.classList.add('open');
+        virtualPage.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        closeSearch();
+        setTimeout(() => svpInput.focus(), 80);
+      }
+
+      function closeVirtualPage() {
+        virtualPage.classList.remove('open');
+        virtualPage.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      function renderVirtualGrid(q) {
+        const results = queryProducts(q);
+        svpCount.innerHTML = q.trim()
+          ? `<strong>${results.length}</strong> result${results.length !== 1 ? 's' : ''} for "${q.trim()}"`
+          : `<strong>${PRODUCT_INDEX.length}</strong> total products`;
+
+        if (results.length === 0) {
+          svpGrid.innerHTML = `
+            <div class="svp-empty" style="grid-column:1/-1">
+              <div class="svp-empty-icon">&#9906;</div>
+              <p class="svp-empty-title">No results found</p>
+              <p class="svp-empty-sub">Try searching "bag", "shopee", "fashion", or "Amazon".</p>
+            </div>`;
+          return;
+        }
+
+        svpGrid.innerHTML = results.map(r => `
+          <a class="card" href="${r.href}" target="_blank" rel="noopener nofollow">
+            <img class="card-img${r.imgClass ? ' ' + r.imgClass : ''}" src="${r.img}" alt="${r.alt}" loading="lazy" />
+            <div class="card-body">
+              <h3>${r.title}</h3>
+              <div class="card-footer">
+                <span class="card-cta">Check Price <span>→</span></span>
+                <span class="search-result-platform ${platformClass(r.platform)}" style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">${r.platform}</span>
+              </div>
+            </div>
+          </a>`).join('');
+      }
+
+      svpBackBtn.addEventListener('click', closeVirtualPage);
+
+      svpInput.addEventListener('input', () => {
+        renderVirtualGrid(svpInput.value);
+      });
+
+      svpInput.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeVirtualPage();
+      });
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && virtualPage.classList.contains('open')) {
+          closeVirtualPage();
+        }
+      });
+
+      // ── Build index after products are rendered ──
+      // Products are rendered synchronously above, so index builds immediately
+      buildIndex();
+
+    })();
   </script>
 </body>
 </html>
