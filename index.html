@@ -2177,7 +2177,7 @@
       border: 1px solid var(--border);
       border-radius: 14px;
       box-shadow: 0 8px 48px rgba(0, 0, 0, 0.16);
-      z-index: 999;
+      z-index: 9999;
       opacity: 0;
       pointer-events: none;
       transform: translateY(-6px);
@@ -2190,21 +2190,28 @@
       transform: translateY(0);
     }
 
-    /* Scrim behind dropdown */
+    /* Scrim — mobile only, sits BEHIND dropdown */
     .search-scrim {
       position: fixed;
       inset: 0;
-      z-index: 198;
+      z-index: 150;
       background: rgba(0,0,0,0.28);
       backdrop-filter: blur(2px);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s ease;
+      display: none;
     }
 
     .search-scrim.visible {
       opacity: 1;
       pointer-events: all;
+    }
+
+    @media (max-width: 600px) {
+      .search-scrim {
+        display: block;
+      }
     }
 
     .search-dropdown-header {
@@ -2460,7 +2467,7 @@
         max-height: 55vh;
         border-radius: 12px;
         transform: translateY(-6px);
-        z-index: 199;
+        z-index: 9999;
       }
 
       .search-dropdown.visible {
@@ -4328,37 +4335,30 @@
       const headerEl = document.querySelector('header');
       let lastY      = window.scrollY;
       let ticking    = false;
-      let accDelta   = 0;
-
-      const HIDE_THRESHOLD = 40;   // accumulated px scrolled down before hiding
-      const SHOW_THRESHOLD = 20;   // accumulated px scrolled up before showing
 
       window.addEventListener('scroll', () => {
         if (ticking) return;
         ticking = true;
+
         requestAnimationFrame(() => {
           const currentY = window.scrollY;
           const diff     = currentY - lastY;
 
-          // Always show when at very top
-          if (currentY <= 0) {
+          // Always visible at very top
+          if (currentY <= 4) {
             headerEl.classList.remove('header-hidden');
-            accDelta = 0;
-            lastY    = currentY;
-            ticking  = false;
+            lastY   = currentY;
+            ticking = false;
             return;
           }
 
-          accDelta += diff;
-
-          if (accDelta > HIDE_THRESHOLD) {
-            // Scrolled down enough → hide
+          // Any downward movement → hide
+          if (diff > 0) {
             headerEl.classList.add('header-hidden');
-            accDelta = 0;
-          } else if (accDelta < -SHOW_THRESHOLD) {
-            // Scrolled up enough → show
+          }
+          // Any upward movement → show immediately
+          else if (diff < 0) {
             headerEl.classList.remove('header-hidden');
-            accDelta = 0;
           }
 
           lastY   = currentY;
