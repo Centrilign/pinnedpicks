@@ -205,7 +205,7 @@
     header {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 200;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -2690,9 +2690,7 @@
         <span></span><span></span><span></span>
       </button>
     </div>
-      <!-- Single canonical dropdown, outside all stacking contexts -->
-      <div class="search-dropdown" id="searchDropdown"></div>
-    </header>
+      </header>      
 
   <!-- Search overlay bar (full-width, fixed, above header) -->
   <div class="search-overlay-bar" id="searchOverlayBar" role="search">
@@ -4258,22 +4256,6 @@
                  <span class="search-result-arrow">→</span>
                </a>`).join('')}`;
         showDropdown();
-      }
-
-      function positionDropdown() {
-        if (isMobile()) {
-          dropdown.style.top    = '62px';
-          dropdown.style.left   = '10px';
-          dropdown.style.right  = '10px';
-          dropdown.style.width  = 'auto';
-        } else {
-          const wrapper = document.getElementById('searchWrapper');
-          const rect    = wrapper.getBoundingClientRect();
-          dropdown.style.top   = (rect.bottom + 8) + 'px';
-          dropdown.style.right = (window.innerWidth - rect.right) + 'px';
-          dropdown.style.left  = 'auto';
-          dropdown.style.width = '380px';
-        }
       }
 
       function positionDropdown() {
