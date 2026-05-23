@@ -195,7 +195,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 40px;
+      padding: 12px 40px;
       background: var(--card);
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(8px);
@@ -328,7 +328,7 @@
     .hero-inner {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 72px 40px 64px;
+      padding: 32px 40px 40px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 48px;
@@ -1489,12 +1489,218 @@
     }
 
     /* ============================================================
+       MOBILE HAMBURGER MENU
+    ============================================================ */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .mobile-menu-btn:hover {
+      background: var(--bg2);
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--muted);
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+
+    .mobile-menu-btn:hover span {
+      background: var(--accent);
+    }
+
+    .mobile-nav-drawer {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 200;
+    }
+
+    .mobile-nav-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(2px);
+    }
+
+    .mobile-nav-panel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 260px;
+      height: 100%;
+      background: var(--card);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobile-nav-drawer.open .mobile-nav-panel {
+      transform: translateX(0);
+    }
+
+    .mobile-nav-drawer.open {
+      display: block;
+    }
+
+    .mobile-nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-nav-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .mobile-nav-close {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 1.3rem;
+      border-radius: 50%;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .mobile-nav-close:hover {
+      background: var(--bg2);
+      color: var(--accent);
+    }
+
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      padding: 12px 0;
+      flex: 1;
+    }
+
+    .mobile-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.18s, color 0.18s;
+    }
+
+    .mobile-nav-link:last-child {
+      border-bottom: none;
+    }
+
+    .mobile-nav-link:hover {
+      background: var(--bg2);
+      color: var(--accent);
+    }
+
+    .mobile-nav-link-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .mobile-nav-link svg {
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    /* ============================================================
+       BACK TO TOP BUTTON
+    ============================================================ */
+    .back-to-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 20px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.15s;
+    }
+
+    .back-to-top:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--card);
+      transform: translateY(-2px);
+    }
+
+    .back-to-top:active {
+      transform: translateY(0);
+    }
+
+    /* Footer nav link */
+    .footer-nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .footer-nav-link:hover {
+      color: var(--accent);
+      border-color: var(--border);
+      background: var(--bg2);
+    }
+
+    /* ============================================================
        RESPONSIVE - MOBILE (≤600px)
     ============================================================ */
     @media (max-width: 600px) {
       /* Header */
       header {
-        padding: 16px 18px;
+        padding: 12px 18px;
       }
 
       .logo {
@@ -1658,8 +1864,26 @@
 
       .saved-nav-btn {
         height: 34px;
-        padding: 0 12px;
+        padding: 0 10px;
         font-size: 0.76rem;
+      }
+
+      .header-platform-nav {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+    }
+
+    @media (min-width: 601px) {
+      .mobile-menu-btn {
+        display: none;
+      }
+
+      .mobile-nav-drawer {
+        display: none !important;
       }
     }
 
@@ -1679,15 +1903,10 @@
     </a>
 
     <nav class="header-platform-nav" aria-label="Platform navigation">
-      <a class="platform-nav-link" href="#" onclick="document.querySelector('.shop-section[data-section=shopee]').scrollIntoView({behavior:'smooth'});return false;">
-        <span class="platform-dot dot-shopee"></span>Shopee
-      </a>
-      <a class="platform-nav-link" href="#" onclick="document.querySelector('.shop-section[data-section=shein]').scrollIntoView({behavior:'smooth'});return false;">
-        <span class="platform-dot dot-shein"></span>SHEIN
-      </a>
-      <a class="platform-nav-link" href="#" onclick="document.querySelector('.shop-section[data-section=amazon]').scrollIntoView({behavior:'smooth'});return false;">
-        <span class="platform-dot dot-amazon"></span>Amazon
-      </a>
+      <a class="platform-nav-link" href="#" onclick="document.querySelector('.shop-section[data-section=shopee]').scrollIntoView({behavior:'smooth'});return false;">Shopee</a>
+      <a class="platform-nav-link" href="#" onclick="document.querySelector('.shop-section[data-section=shein]').scrollIntoView({behavior:'smooth'});return false;">SHEIN</a>
+      <a class="platform-nav-link" href="#" onclick="document.querySelector('.shop-section[data-section=amazon]').scrollIntoView({behavior:'smooth'});return false;">Amazon</a>
+      <a class="platform-nav-link footer-nav-link" href="#" onclick="document.querySelector('footer').scrollIntoView({behavior:'smooth'});return false;">Footer</a>
     </nav>
 
     <div class="nav-actions">
@@ -1696,6 +1915,39 @@
         Saved
       </a>
       <button class="theme-btn" id="themeBtn" title="Toggle theme">☽</button>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile Nav Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+      <div class="mobile-nav-overlay" onclick="closeMobileNav()"></div>
+      <div class="mobile-nav-panel">
+        <div class="mobile-nav-header">
+          <span class="mobile-nav-title">Navigate</span>
+          <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+        </div>
+        <div class="mobile-nav-links">
+          <a class="mobile-nav-link" href="#" onclick="closeMobileNav();document.querySelector('.shop-section[data-section=shopee]').scrollIntoView({behavior:'smooth'});return false;">
+            <span class="mobile-nav-link-dot" style="background:#f05a28;"></span>Shopee
+          </a>
+          <a class="mobile-nav-link" href="#" onclick="closeMobileNav();document.querySelector('.shop-section[data-section=shein]').scrollIntoView({behavior:'smooth'});return false;">
+            <span class="mobile-nav-link-dot" style="background:#1a1a1a;"></span>SHEIN
+          </a>
+          <a class="mobile-nav-link" href="#" onclick="closeMobileNav();document.querySelector('.shop-section[data-section=amazon]').scrollIntoView({behavior:'smooth'});return false;">
+            <span class="mobile-nav-link-dot" style="background:#ff9900;"></span>Amazon
+          </a>
+          <a class="mobile-nav-link" href="saved.html">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+            Saved Pins
+          </a>
+          <a class="mobile-nav-link" href="#" onclick="closeMobileNav();document.querySelector('footer').scrollIntoView({behavior:'smooth'});return false;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            Footer
+          </a>
+        </div>
+      </div>
     </div>
 
   </header>
@@ -2072,6 +2324,14 @@
         <strong>Affiliate Disclosure:</strong>
         This page contains affiliate links. We may earn a commission from qualifying purchases made through partner platforms at no extra cost to you.
       </p>
+
+      <!-- Back to Top -->
+      <div style="display:flex;justify-content:center;margin-bottom:20px;">
+        <a href="#" class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          Back to Top
+        </a>
+      </div>
 
       <!-- Bottom Bar -->
       <div class="footer-bottom">
@@ -2684,6 +2944,19 @@
     function toggleSection(header) {
       // no-op: sections are always open; stub prevents console errors
     }
+
+    // ── MOBILE NAV ──
+    function closeMobileNav() {
+      const drawer = document.getElementById('mobileNavDrawer');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+      const drawer = document.getElementById('mobileNavDrawer');
+      drawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
 
     // ── PRODUCT DATA ──
   const PRODUCTS = {
