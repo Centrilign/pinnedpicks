@@ -2052,13 +2052,13 @@
       background: var(--bg2);
     }
 
-    /* Mobile-only: full-width overlay bar */
+   /* Mobile-only: full-width overlay bar */
     .search-overlay-bar {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      z-index: 200;
+      z-index: 9000;
       background: var(--card);
       border-bottom: 1px solid var(--border);
       display: none;
@@ -2190,16 +2190,15 @@
       transform: translateY(0);
     }
 
-    /* Scrim — mobile only, sits BEHIND dropdown */
+   /* Scrim — mobile only, NO backdrop-filter (causes blur bleed) */
     .search-scrim {
       position: fixed;
       inset: 0;
       z-index: 150;
-      background: rgba(0,0,0,0.28);
-      backdrop-filter: blur(2px);
+      background: rgba(0, 0, 0, 0.32);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.28s ease;
       display: none;
     }
 
@@ -2467,7 +2466,7 @@
         max-height: 55vh;
         border-radius: 12px;
         transform: translateY(-6px);
-        z-index: 9999;
+        z-index: 99999;
       }
 
       .search-dropdown.visible {
@@ -4171,14 +4170,16 @@
 
       // ── MOBILE open/close ──
       function openMobile() {
-        overlayBar.classList.add('open');
+        if (window._navScrollLock) window._navScrollLock();
         headerEl.classList.add('header-hidden');
+        overlayBar.classList.add('open');
         setTimeout(() => inputMob.focus(), 120);
       }
 
       function closeMobileSearch() {
         overlayBar.classList.remove('open');
         headerEl.classList.remove('header-hidden');
+        if (window._navScrollUnlock) window._navScrollUnlock();
         hideDropdown();
         inputMob.value = '';
         clearMob.classList.remove('visible');
@@ -4327,38 +4328,45 @@
     })();
 
 
-    // ══════════════════════════════════════════════════════════════
+   // ══════════════════════════════════════════════════════════════
     //  AUTO-HIDE / SHOW NAVBAR ON SCROLL
     // ══════════════════════════════════════════════════════════════
 
     (function initNavScroll() {
-      const headerEl = document.querySelector('header');
-      let lastY      = window.scrollY;
-      let ticking    = false;
+      const headerEl   = document.querySelector('header');
+      let lastY        = window.scrollY;
+      let ticking      = false;
+      let navLocked    = false;   // true while mobile search is open
+
+      // Expose lock so openMobile/closeMobileSearch can pause nav logic
+      window._navScrollLock   = function() { navLocked = true; };
+      window._navScrollUnlock = function() { navLocked = false; };
 
       window.addEventListener('scroll', () => {
-        if (ticking) return;
+        if (ticking || navLocked) return;
         ticking = true;
 
         requestAnimationFrame(() => {
           const currentY = window.scrollY;
           const diff     = currentY - lastY;
 
-          // Always visible at very top
-          if (currentY <= 4) {
+          // Always show at very top
+          if (currentY <= 8) {
             headerEl.classList.remove('header-hidden');
             lastY   = currentY;
             ticking = false;
             return;
           }
 
-          // Any downward movement → hide
-          if (diff > 0) {
-            headerEl.classList.add('header-hidden');
-          }
-          // Any upward movement → show immediately
-          else if (diff < 0) {
-            headerEl.classList.remove('header-hidden');
+          // Ignore jitter under 2px
+          if (Math.abs(diff) >= 2) {
+            if (diff > 0) {
+              // Scrolling down → hide
+              headerEl.classList.add('header-hidden');
+            } else {
+              // Scrolling up → show
+              headerEl.classList.remove('header-hidden');
+            }
           }
 
           lastY   = currentY;
