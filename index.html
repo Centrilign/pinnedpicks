@@ -205,7 +205,7 @@
     header {
       position: sticky;
       top: 0;
-      z-index: 200;
+      z-index: 100;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -2168,8 +2168,8 @@
     /* Dropdown — desktop: anchored to search wrapper; mobile: fixed centered */
     .search-dropdown {
       position: fixed;
-      top: 60px;   /* overridden by JS on desktop */
-      right: 16px; /* overridden by JS on desktop */
+      top: 60px;
+      right: 16px;
       width: 380px;
       max-height: 480px;
       overflow-y: auto;
@@ -2458,7 +2458,6 @@
 
       /* Dropdown on mobile: fixed, centered below overlay bar */
       .search-dropdown {
-        position: fixed;
         top: 62px;
         left: 10px;
         right: 10px;
@@ -2705,6 +2704,7 @@
     <button class="search-overlay-cancel" id="searchCancelBtn">Cancel</button>
   </div>
   <div class="search-scrim" id="searchScrim"></div>
+  <div class="search-dropdown" id="searchDropdown"></div>
 
   <!-- ============================================================
        HERO
@@ -4266,6 +4266,22 @@
           dropdown.style.left   = '10px';
           dropdown.style.right  = '10px';
           dropdown.style.width  = 'auto';
+        } else {
+          const wrapper = document.getElementById('searchWrapper');
+          const rect    = wrapper.getBoundingClientRect();
+          dropdown.style.top   = (rect.bottom + 8) + 'px';
+          dropdown.style.right = (window.innerWidth - rect.right) + 'px';
+          dropdown.style.left  = 'auto';
+          dropdown.style.width = '380px';
+        }
+      }
+
+      function positionDropdown() {
+        if (isMobile()) {
+          dropdown.style.top   = '62px';
+          dropdown.style.left  = '10px';
+          dropdown.style.right = '10px';
+          dropdown.style.width = 'auto';
         } else {
           const wrapper = document.getElementById('searchWrapper');
           const rect    = wrapper.getBoundingClientRect();
