@@ -227,13 +227,13 @@
       height: 36px;
       display: grid;
       place-items: center;
-      background: var(--bg2);
-      border: 1px solid var(--border);
+      background: transparent;
+      border: none;
       border-radius: 50%;
       color: var(--muted);
-      font-size: 1rem;
+      font-size: 1.15rem;
       cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
+      transition: color 0.2s, transform 0.18s;
     }
 
     .nav-actions {
@@ -246,6 +246,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 6px;
       height: 36px;
       padding: 0 14px;
       border-radius: 999px;
@@ -253,19 +254,14 @@
       font-size: 0.82rem;
       font-weight: 600;
       letter-spacing: 0.01em;
-      color: var(--text);
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      transition:
-        background-color 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.18s ease;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      transition: color 0.2s ease, transform 0.18s ease;
       white-space: nowrap;
     }
 
     .saved-nav-btn:hover {
-      border-color: var(--accent);
       color: var(--accent);
       transform: translateY(-1px);
     }
@@ -280,8 +276,8 @@
     }
 
     .theme-btn:hover {
-      border-color: var(--accent);
       color: var(--accent);
+      transform: scale(1.15);
     }
 
     /* ============================================================
@@ -296,7 +292,7 @@
     .platform-nav-link {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 0;
       padding: 6px 14px;
       border-radius: 999px;
       text-decoration: none;
@@ -316,10 +312,7 @@
     }
 
     .platform-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      flex-shrink: 0;
+      display: none;
     }
 
     /* ============================================================
@@ -606,16 +599,16 @@
        MAIN LAYOUT
     ============================================================ */
     main {
-      max-width: 1280px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 48px 24px 80px;
+      padding: 32px 16px 80px;
     }
 
     /* ============================================================
        SHOP SECTION
     ============================================================ */
     .shop-section {
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -1354,10 +1347,7 @@
     }
 
     .footer-col-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
+      display: none;
     }
 
     /* footer rule */
@@ -1551,7 +1541,11 @@
         border-radius: 0;
         border-left: none;
         border-right: none;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
+      }
+
+      main {
+        padding: 12px 0 60px;
       }
 
       .section-header {
@@ -1697,8 +1691,9 @@
     </nav>
 
     <div class="nav-actions">
-      <a href="saved.html" class="saved-nav-btn">
-        Saved Pins
+      <a href="saved.html" class="saved-nav-btn" aria-label="Saved Pins">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+        Saved
       </a>
       <button class="theme-btn" id="themeBtn" title="Toggle theme">☽</button>
     </div>
