@@ -1541,51 +1541,54 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 9999;
+      width: 100vw;
+      height: 100vh;
+      z-index: 99999;
       pointer-events: none;
-      overflow: hidden;
-    }
-
-    .mobile-nav-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.35);
-      backdrop-filter: blur(2px);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .mobile-nav-panel {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 260px;
-      max-width: 80vw;
-      height: 100%;
-      background: var(--card);
-      border-left: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      padding: 0;
-      overflow-y: auto;
-      overflow-x: hidden;
-      transform: translateX(110%);
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: -8px 0 40px rgba(0,0,0,0.12);
-      will-change: transform;
+      visibility: hidden;
+      transition: visibility 0s linear 0.35s;
     }
 
     .mobile-nav-drawer.open {
       pointer-events: all;
+      visibility: visible;
+      transition: visibility 0s linear 0s;
+    }
+
+    .mobile-nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(3px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .mobile-nav-drawer.open .mobile-nav-overlay {
       opacity: 1;
+    }
+
+    .mobile-nav-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 260px;
+      max-width: 82vw;
+      height: 100vh;
+      background: var(--card);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -8px 0 48px rgba(0,0,0,0.18);
+      will-change: transform;
+      z-index: 1;
     }
 
     .mobile-nav-drawer.open .mobile-nav-panel {
@@ -1907,11 +1910,11 @@
 
     @media (min-width: 601px) {
       .mobile-menu-btn {
-        display: none;
+        display: none !important;
       }
 
       .mobile-nav-drawer {
-        display: none !important;
+        visibility: hidden !important;
         pointer-events: none !important;
       }
     }
@@ -1949,37 +1952,7 @@
       </button>
     </div>
 
-    <!-- Mobile Nav Drawer -->
-    <div class="mobile-nav-drawer" id="mobileNavDrawer">
-      <div class="mobile-nav-overlay" onclick="closeMobileNav()"></div>
-      <div class="mobile-nav-panel">
-        <div class="mobile-nav-header">
-          <span class="mobile-nav-title">Navigate</span>
-          <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
-        </div>
-        <div class="mobile-nav-links">
-          <a class="mobile-nav-link" href="#" onclick="closeMobileNav();document.querySelector('.shop-section[data-section=shopee]').scrollIntoView({behavior:'smooth'});return false;">
-            <span class="mobile-nav-link-dot" style="background:#f05a28;"></span>Shopee
-          </a>
-          <a class="mobile-nav-link" href="#" onclick="closeMobileNav();document.querySelector('.shop-section[data-section=shein]').scrollIntoView({behavior:'smooth'});return false;">
-            <span class="mobile-nav-link-dot" style="background:#1a1a1a;"></span>SHEIN
-          </a>
-          <a class="mobile-nav-link" href="#" onclick="closeMobileNav();document.querySelector('.shop-section[data-section=amazon]').scrollIntoView({behavior:'smooth'});return false;">
-            <span class="mobile-nav-link-dot" style="background:#ff9900;"></span>Amazon
-          </a>
-          <a class="mobile-nav-link" href="saved.html">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
-            Saved Pins
-          </a>
-          <a class="mobile-nav-link" href="#" onclick="closeMobileNav();document.querySelector('footer').scrollIntoView({behavior:'smooth'});return false;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            Footer
-          </a>
-        </div>
-      </div>
-    </div>
-
-  </header>
+    </header>
 
   <!-- ============================================================
        HERO
@@ -2376,6 +2349,38 @@
 
     </div>
   </footer>
+
+ <!-- ============================================================
+       MOBILE NAV DRAWER (outside header to avoid stacking context)
+  ============================================================ -->
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <div class="mobile-nav-overlay" onclick="closeMobileNav()"></div>
+    <div class="mobile-nav-panel">
+      <div class="mobile-nav-header">
+        <span class="mobile-nav-title">Navigate</span>
+        <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+      </div>
+      <div class="mobile-nav-links">
+        <a class="mobile-nav-link" href="#" onclick="closeMobileNav();setTimeout(()=>document.querySelector('.shop-section[data-section=shopee]').scrollIntoView({behavior:'smooth'}),10);return false;">
+          <span class="mobile-nav-link-dot" style="background:#f05a28;"></span>Shopee
+        </a>
+        <a class="mobile-nav-link" href="#" onclick="closeMobileNav();setTimeout(()=>document.querySelector('.shop-section[data-section=shein]').scrollIntoView({behavior:'smooth'}),10);return false;">
+          <span class="mobile-nav-link-dot" style="background:#1a1a1a;"></span>SHEIN
+        </a>
+        <a class="mobile-nav-link" href="#" onclick="closeMobileNav();setTimeout(()=>document.querySelector('.shop-section[data-section=amazon]').scrollIntoView({behavior:'smooth'}),10);return false;">
+          <span class="mobile-nav-link-dot" style="background:#ff9900;"></span>Amazon
+        </a>
+        <a class="mobile-nav-link" href="saved.html">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+          Saved Pins
+        </a>
+        <a class="mobile-nav-link" href="#" onclick="closeMobileNav();setTimeout(()=>document.querySelector('footer').scrollIntoView({behavior:'smooth'}),10);return false;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          Footer
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- ============================================================
        JAVASCRIPT
