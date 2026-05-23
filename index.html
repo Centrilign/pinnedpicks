@@ -2327,6 +2327,156 @@
       }
     }
 
+/* ============================================================
+       FAQ SECTION
+    ============================================================ */
+    .faq-section {
+      max-width: 860px;
+      margin: 0 auto 0;
+      padding: 56px 24px 64px;
+    }
+
+    .faq-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .faq-eyebrow::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 1.5px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .faq-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 40px;
+    }
+
+    .faq-heading em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      padding: 20px 24px;
+      background: transparent;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.4;
+      transition: background 0.18s ease, color 0.18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .faq-question:hover {
+      background: var(--bg2);
+      color: var(--accent);
+    }
+
+    .faq-item.open .faq-question {
+      color: var(--accent);
+    }
+
+    .faq-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      font-size: 1rem;
+      line-height: 1;
+      color: var(--muted);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                  border-color 0.2s ease,
+                  color 0.2s ease,
+                  background 0.2s ease;
+      user-select: none;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(200, 82, 26, 0.07);
+    }
+
+    .faq-answer-wrap {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .faq-answer {
+      padding: 0 24px 22px;
+      font-size: 0.92rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    @media (max-width: 600px) {
+      .faq-section {
+        padding: 40px 16px 52px;
+      }
+
+      .faq-question {
+        padding: 17px 18px;
+        font-size: 0.93rem;
+      }
+
+      .faq-answer {
+        padding: 16px 18px 20px;
+        font-size: 0.88rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2346,6 +2496,7 @@
       <a class="platform-nav-link" href="#" onclick="document.querySelector('.shop-section[data-section=shopee]').scrollIntoView({behavior:'smooth'});return false;">Shopee</a>
       <a class="platform-nav-link" href="#" onclick="document.querySelector('.shop-section[data-section=shein]').scrollIntoView({behavior:'smooth'});return false;">SHEIN</a>
       <a class="platform-nav-link" href="#" onclick="document.querySelector('.shop-section[data-section=amazon]').scrollIntoView({behavior:'smooth'});return false;">Amazon</a>
+      <a class="platform-nav-link" href="#faq" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'});return false;">FAQ</a>
       <a class="platform-nav-link footer-nav-link" href="#" onclick="document.querySelector('footer').scrollIntoView({behavior:'smooth'});return false;">Footer</a>
     </nav>
 
@@ -2670,6 +2821,67 @@
 
 
   <!-- ============================================================
+       FAQ
+  ============================================================ -->
+  <section class="faq-section" id="faq">
+    <p class="faq-eyebrow">Got Questions</p>
+    <h2 class="faq-heading">Frequently asked<br><em>questions.</em></h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          Are these product recommendations sponsored or unbiased?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer-wrap">
+          <p class="faq-answer">Our recommendations are not sponsored, and while we do earn affiliate commissions from purchases made through our links, these commissions never influence which products we choose to feature. All of our selections are curated independently, based purely on what we believe offers genuine value.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          Is this website a fully functioning checkout, or just a catalog?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer-wrap">
+          <p class="faq-answer">We are a catalog only, so you won't be entering any payment details here. Once you find something you love, simply click the link and you'll be taken directly to Shopee, SHEIN, or Amazon to complete your purchase safely.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          Does clicking these links cost me extra money?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer-wrap">
+          <p class="faq-answer">Not at all, clicking our affiliate links adds zero extra cost to your purchase. You pay exactly the same price you would if you went to Shopee, SHEIN, or Amazon directly, and we simply earn a small commission from the platform on our end.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          How do I find a specific product category?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer-wrap">
+          <p class="faq-answer">On our homepage, each platform section for Shopee, SHEIN, and Amazon has its own "Browse by Category" tabs covering options like Fashion, Electronics, Beauty, and more. Just scroll to the platform you prefer and tap the category that interests you to start browsing.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+          How often is this product list updated?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer-wrap">
+          <p class="faq-answer">We update our product list on a regular basis as we continuously expand our curated collections. Since pricing and availability are controlled by the platforms themselves, we always recommend verifying the final details on the destination site before making a purchase.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
        FOOTER
   ============================================================ -->
   <footer>
@@ -2794,6 +3006,10 @@
         <a class="mobile-nav-link" href="saved.html">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
           Saved Pins
+        </a>
+        <a class="mobile-nav-link" href="#faq" onclick="closeMobileNav();setTimeout(()=>document.getElementById('faq').scrollIntoView({behavior:'smooth'}),10);return false;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          FAQ
         </a>
         <a class="mobile-nav-link" href="#" onclick="closeMobileNav();setTimeout(()=>document.querySelector('footer').scrollIntoView({behavior:'smooth'}),10);return false;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -3791,7 +4007,7 @@
         const q = input.value;
         clearBtn.classList.toggle('visible', q.length > 0);
         if (q.trim().length > 0) {
-          renderDropdown(queryProducts(q, 10));
+          renderDropdown(queryProducts(q));
         } else {
           hideDropdown();
         }
@@ -3918,6 +4134,32 @@
       buildIndex();
 
     })();
+
+// ── FAQ ACCORDION ──
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const wrap = item.querySelector('.faq-answer-wrap');
+      const isOpen = item.classList.contains('open');
+
+      // Close all others
+      document.querySelectorAll('.faq-item.open').forEach(openItem => {
+        if (openItem !== item) {
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-answer-wrap').style.maxHeight = '0';
+          openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      if (isOpen) {
+        item.classList.remove('open');
+        wrap.style.maxHeight = '0';
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        item.classList.add('open');
+        wrap.style.maxHeight = wrap.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
   </script>
 
 </html>
