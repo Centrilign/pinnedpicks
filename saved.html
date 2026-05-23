@@ -348,44 +348,72 @@
 
     /* MOBILE */
 
+    html { overflow-x: hidden; }
+    body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    body.nav-open { overflow: hidden; position: fixed; width: 100%; }
+    a, button { -webkit-tap-highlight-color: transparent; }
+    header { padding: 12px 40px; }
+
+    .sub-page-nav { display: flex; align-items: center; gap: 4px; }
+    .sub-page-nav-link { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 999px; text-decoration: none; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.02em; color: var(--muted); background: transparent; border: 1px solid transparent; transition: color 0.2s, border-color 0.2s, background 0.2s; }
+    .sub-page-nav-link:hover { color: var(--accent); border-color: var(--border); background: var(--bg2); }
+
+    .browse-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: transparent;
+      border: none;
+      transition: color 0.2s ease, transform 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .browse-nav-btn:hover { color: var(--accent); transform: translateY(-1px); }
+
+    .theme-btn { background: transparent; border: none; transition: color 0.2s, transform 0.18s; }
+    .theme-btn:hover { color: var(--accent); transform: scale(1.15); }
+
+    .sub-mobile-btn { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; background: transparent; border: none; cursor: pointer; padding: 4px; border-radius: 6px; transition: background 0.2s; }
+    .sub-mobile-btn:hover { background: var(--bg2); }
+    .sub-mobile-btn span { display: block; width: 22px; height: 1.5px; background: var(--muted); border-radius: 2px; transition: background 0.2s; }
+    .sub-mobile-btn:hover span { background: var(--accent); }
+
+    .sub-nav-drawer { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; pointer-events: none; visibility: hidden; transition: visibility 0s linear 0.35s; }
+    .sub-nav-drawer.open { pointer-events: all; visibility: visible; transition: visibility 0s linear 0s; }
+    .sub-nav-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); backdrop-filter: blur(3px); opacity: 0; transition: opacity 0.3s ease; }
+    .sub-nav-drawer.open .sub-nav-overlay { opacity: 1; }
+    .sub-nav-panel { position: fixed; top: 0; right: 0; width: 260px; max-width: 82vw; height: 100vh; background: var(--card); border-left: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: -8px 0 48px rgba(0,0,0,0.18); will-change: transform; z-index: 1; }
+    .sub-nav-drawer.open .sub-nav-panel { transform: translateX(0); }
+    .sub-nav-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+    .sub-nav-title { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--text); }
+    .sub-nav-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer; color: var(--muted); font-size: 1.3rem; border-radius: 50%; transition: background 0.2s, color 0.2s; }
+    .sub-nav-close:hover { background: var(--bg2); color: var(--accent); }
+    .sub-nav-links { display: flex; flex-direction: column; padding: 12px 0; flex: 1; }
+    .sub-nav-link { display: flex; align-items: center; gap: 12px; padding: 14px 20px; text-decoration: none; font-size: 0.9rem; font-weight: 600; color: var(--text); border-bottom: 1px solid var(--border); transition: background 0.18s, color 0.18s; }
+    .sub-nav-link:last-child { border-bottom: none; }
+    .sub-nav-link:hover { background: var(--bg2); color: var(--accent); }
+    .sub-nav-link svg { flex-shrink: 0; opacity: 0.7; }
+
+    @media (max-width: 768px) { .sub-page-nav { display: none; } .sub-mobile-btn { display: flex; } }
+    @media (min-width: 769px) { .sub-mobile-btn { display: none !important; } .sub-nav-drawer { visibility: hidden !important; pointer-events: none !important; } }
+
     @media (max-width: 640px) {
-
-      header {
-        padding: 16px 18px;
-      }
-
-      .logo {
-        font-size: 1.25rem;
-      }
-
-      .logo-img {
-        width: 34px;
-        height: 34px;
-      }
-
-      .saved-wrap {
-        padding: 0 16px 60px;
-      }
-
-      #savedPinsGrid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
-      }
-
-      .card-body {
-        padding: 14px;
-      }
-
-      .nav-actions {
-        gap: 8px;
-        }
-
-        .browse-nav-btn {
-        height: 34px;
-        padding: 0 12px;
-        font-size: 0.76rem;
-        }
-
+      header { padding: 12px 18px; }
+      .logo { font-size: 1.25rem; }
+      .logo-img { width: 34px; height: 34px; }
+      .saved-wrap { padding: 0 16px 60px; }
+      #savedPinsGrid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .card-body { padding: 14px; }
+      .nav-actions { gap: 8px; }
+      .browse-nav-btn { height: 34px; padding: 0 12px; font-size: 0.76rem; }
     }
 
   </style>
@@ -400,19 +428,50 @@
       <img src="webimages/favicon.png" alt="PinnedPicks Logo" class="logo-img" />
       Pinned<span>Picks</span>
     </a>
-
+    <nav class="sub-page-nav" aria-label="Site navigation">
+      <a class="sub-page-nav-link" href="index.html">Home</a>
+      <a class="sub-page-nav-link" href="about.html">About</a>
+      <a class="sub-page-nav-link" href="privacypolicy.html">Privacy</a>
+      <a class="sub-page-nav-link" href="termsandconditions.html">Terms</a>
+    </nav>
     <div class="nav-actions">
-
-    <a href="index.html" class="browse-nav-btn">
+      <a href="index.html" class="browse-nav-btn">
         Browse Products
-    </a>
-
-    <button class="theme-btn" id="themeBtn" title="Toggle theme">
-        ☽
-    </button>
-
+      </a>
+      <button class="theme-btn" id="themeBtn" title="Toggle theme">☽</button>
+      <button class="sub-mobile-btn" id="subMobileBtn" aria-label="Open navigation">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
+
+  <div class="sub-nav-drawer" id="subNavDrawer">
+    <div class="sub-nav-overlay" onclick="closeSubNav()"></div>
+    <div class="sub-nav-panel">
+      <div class="sub-nav-header">
+        <span class="sub-nav-title">Navigate</span>
+        <button class="sub-nav-close" onclick="closeSubNav()">✕</button>
+      </div>
+      <div class="sub-nav-links">
+        <a class="sub-nav-link" href="index.html">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          Home
+        </a>
+        <a class="sub-nav-link" href="about.html">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          About
+        </a>
+        <a class="sub-nav-link" href="privacypolicy.html">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Privacy Policy
+        </a>
+        <a class="sub-nav-link" href="termsandconditions.html">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Terms &amp; Conditions
+        </a>
+      </div>
+    </div>
+  </div>
 
   <section class="saved-hero">
     <h1>Saved Pins</h1>
@@ -603,6 +662,10 @@
     }
 
     renderSavedPins();
+
+    function closeSubNav() { document.getElementById('subNavDrawer').classList.remove('open'); document.body.classList.remove('nav-open'); }
+    document.getElementById('subMobileBtn').addEventListener('click', function() { document.getElementById('subNavDrawer').classList.add('open'); document.body.classList.add('nav-open'); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeSubNav(); });
 
   </script>
 
