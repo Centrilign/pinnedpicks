@@ -205,7 +205,7 @@
     header {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 200;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -2167,9 +2167,9 @@
 
     /* Dropdown — desktop: anchored to search wrapper; mobile: fixed centered */
     .search-dropdown {
-      position: absolute;
-      top: calc(100% + 10px);
-      right: 0;
+      position: fixed;
+      top: 60px;   /* overridden by JS on desktop */
+      right: 16px; /* overridden by JS on desktop */
       width: 380px;
       max-height: 480px;
       overflow-y: auto;
@@ -2680,8 +2680,6 @@
           <input type="text" id="searchInputDesktop" placeholder="Search products…" autocomplete="off" spellcheck="false" />
           <button class="search-input-clear" id="searchClearBtnDesktop" aria-label="Clear search">✕</button>
         </div>
-        <!-- Shared dropdown (desktop: absolute; mobile: fixed) -->
-        <div class="search-dropdown" id="searchDropdown"></div>
       </div>
 
       <a href="saved.html" class="saved-nav-btn" aria-label="Saved Pins">
@@ -2693,7 +2691,8 @@
         <span></span><span></span><span></span>
       </button>
     </div>
-
+      <!-- Single canonical dropdown, outside all stacking contexts -->
+      <div class="search-dropdown" id="searchDropdown"></div>
     </header>
 
   <!-- Search overlay bar (full-width, fixed, above header) -->
@@ -2706,7 +2705,6 @@
     <button class="search-overlay-cancel" id="searchCancelBtn">Cancel</button>
   </div>
   <div class="search-scrim" id="searchScrim"></div>
-  <div class="search-dropdown" id="searchDropdown"></div>
 
   <!-- ============================================================
        HERO
@@ -4262,7 +4260,24 @@
         showDropdown();
       }
 
+      function positionDropdown() {
+        if (isMobile()) {
+          dropdown.style.top    = '62px';
+          dropdown.style.left   = '10px';
+          dropdown.style.right  = '10px';
+          dropdown.style.width  = 'auto';
+        } else {
+          const wrapper = document.getElementById('searchWrapper');
+          const rect    = wrapper.getBoundingClientRect();
+          dropdown.style.top   = (rect.bottom + 8) + 'px';
+          dropdown.style.right = (window.innerWidth - rect.right) + 'px';
+          dropdown.style.left  = 'auto';
+          dropdown.style.width = '380px';
+        }
+      }
+
       function showDropdown() {
+        positionDropdown();
         dropdown.classList.add('visible');
         scrim.classList.add('visible');
       }
