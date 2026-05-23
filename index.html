@@ -203,8 +203,11 @@
        HEADER
     ============================================================ */
     header {
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
       z-index: 200;
       display: flex;
       justify-content: space-between;
@@ -337,6 +340,13 @@
       overflow: hidden;
       background: var(--bg2);
       border-bottom: 1px solid var(--border);
+      margin-top: 64px;
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        margin-top: 58px;
+      }
     }
 
     .hero-inner {
