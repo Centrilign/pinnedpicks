@@ -669,7 +669,7 @@
 
     .card-img {
       width: 100%;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 3 / 4;
       object-fit: cover;
       display: block;
       background: var(--bg2);
