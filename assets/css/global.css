@@ -668,13 +668,18 @@
     }
 
     .card-img {
-        aspect-ratio: 1 / 1;
-      }
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+      background: var(--bg2);
+    }
 
-      .card-img.pin-portrait {
+    .card-img.pin-portrait {
         aspect-ratio: 1 / 1;
         object-position: center top;
-      }
+    }
+    
     .card-body {
       flex: 1;
       display: flex;
