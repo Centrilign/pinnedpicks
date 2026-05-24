@@ -1,68 +1,7 @@
- *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    :root {
-      --bg:      #faf8f5;
-      --bg2:     #f2ede6;
-      --card:    #ffffff;
-      --text:    #1a1612;
-      --muted:   #7a6f65;
-      --accent:  #c8521a;
-      --accent2: #e8855a;
-      --border:  rgba(0,0,0,0.09);
-      --shadow:  0 2px 24px rgba(0,0,0,0.07);
-    }
-    [data-theme="dark"] {
-      --bg:      #130f0b;
-      --bg2:     #1d1710;
-      --card:    #1f1a14;
-      --text:    #f0ebe3;
-      --muted:   #9a8e82;
-      --accent:  #e06b30;
-      --accent2: #f09060;
-      --border:  rgba(255,255,255,0.07);
-      --shadow:  0 2px 24px rgba(0,0,0,0.4);
-    }
-
-    html { scroll-behavior: smooth; }
-    * { scrollbar-width: none; -ms-overflow-style: none; }
-    *::-webkit-scrollbar { display: none; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 400;
-      line-height: 1.7;
-      min-height: 100vh;
-      transition: background 0.35s, color 0.35s;
-    }
-
-    /* HEADER */
-    header {
-      position: sticky; top: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 18px 40px;
-      background: var(--card);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(8px);
-    }
-    .logo {
-      display: flex; align-items: center; gap: 0;
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.5rem; font-weight: bold;
-      color: var(--accent); letter-spacing: -0.01em;
-      text-decoration: none;
-    }
-    .logo span { color: var(--text); }
-    .logo-img { width: 40px; height: 40px; object-fit: contain; }
-    .theme-btn {
-      width: 36px; height: 36px;
-      display: grid; place-items: center;
-      background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 50%; color: var(--muted); font-size: 1rem;
-      cursor: pointer; transition: border-color 0.2s, color 0.2s;
-    }
-    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+    /* ── Reset, :root variables, body, html, .logo, .theme-btn
+   are inherited from global.css which is imported first.
+   Only subpage-specific chrome begins here. ── */
 
     /* HERO */
     .page-hero {
@@ -153,6 +92,72 @@
       font-size: 0.85rem;
     }
 
+    /* ── LEGAL PAGES: privacy-policy, terms-and-conditions ── */
+    .legal-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 48px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .legal-section {
+      margin-bottom: 44px;
+    }
+
+    .legal-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .legal-section p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 12px;
+    }
+
+    .legal-section ul {
+      list-style: none;
+      margin: 8px 0 12px;
+    }
+
+    .legal-section ul li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding: 5px 0 5px 18px;
+      position: relative;
+      line-height: 1.7;
+    }
+
+    .legal-section ul li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .highlight-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin: 16px 0;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      font-size: 0.84rem;
+    }
+
     /* BACK LINK */
     .back-link {
       display: inline-flex; align-items: center; gap: 6px;
@@ -163,6 +168,200 @@
       transition: gap 0.2s;
     }
     .back-link:hover { gap: 10px; }
+
+    /* ── SAVED PAGE ── */
+    .saved-hero {
+      padding: 56px 24px 48px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      color: #fff;
+      text-align: center;
+    }
+
+    .saved-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.15;
+      margin-bottom: 10px;
+    }
+
+    .saved-hero p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      opacity: 0.88;
+    }
+
+    .saved-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    #savedPinsGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      gap: 16px;
+    }
+
+    .empty-state h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    .empty-state p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 320px;
+      line-height: 1.7;
+    }
+
+    .browse-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 11px 24px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: opacity 0.2s, transform 0.18s;
+    }
+
+    .browse-btn:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    /* Saved page card meta tags */
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .meta-tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 7px;
+    }
+
+    /* Card styles needed on saved page (duplicated from global.css scope) */
+    .saved-wrap .card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .saved-wrap .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+
+    .saved-wrap .card-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+    }
+
+    .saved-wrap .card-body {
+      padding: 12px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .saved-wrap .card h3 {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .saved-wrap .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+
+    .saved-wrap .card-cta {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    .saved-wrap .save-btn {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: transparent;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      color: var(--accent);
+      transition: background 0.2s, transform 0.15s;
+      flex-shrink: 0;
+    }
+
+    .saved-wrap .save-btn:hover {
+      background: var(--bg2);
+      transform: scale(1.1);
+    }
+
+    .saved-wrap .save-btn svg {
+      width: 13px;
+      height: 13px;
+      fill: var(--accent);
+      stroke: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      #savedPinsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .saved-wrap {
+        padding: 32px 16px 60px;
+      }
+    }
 
     /* FOOTER */
     .site-footer {
@@ -197,13 +396,20 @@
       opacity: 0.8;
     }
 
-    /* ── SUB-PAGE NAV SYSTEM ── */
-    html { overflow-x: hidden; }
-    body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-    body.nav-open { overflow: hidden; position: fixed; width: 100%; }
-    a, button { -webkit-tap-highlight-color: transparent; }
-
-    header { padding: 12px 40px; }
+    /* ── SUBPAGE HEADER OVERRIDES
+   (global.css sets position:fixed for index; subpages use sticky) ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 40px;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
 
     .sub-page-nav {
       display: flex;
@@ -475,4 +681,16 @@
       .footer-inner { padding: 24px 20px 20px; }
       .sub-footer-top { flex-direction: column; align-items: flex-start; gap: 12px; }
       .sub-footer-links { gap: 12px; }
+
+      /* Legal pages mobile */
+      .legal-section h2 { font-size: 1.1rem; }
+      .legal-section p,
+      .legal-section ul li { font-size: 0.85rem; }
+      .highlight-box { padding: 14px 16px; }
+      .legal-meta { margin-bottom: 32px; }
+
+      /* Section blocks mobile */
+      .section-block h2 { font-size: 1.25rem; }
+      .section-block p,
+      .section-block ul li { font-size: 0.88rem; }
     }

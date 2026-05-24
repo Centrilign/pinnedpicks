@@ -43,185 +43,10 @@
   <link rel="apple-touch-icon" href="/assets/images/ui/favicon.png" />
   
   <link rel="icon" type="image/png" href="assets/images/ui/favicon.png" />
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-    :root {
-      --bg:      #faf8f5;
-      --bg2:     #f2ede6;
-      --card:    #ffffff;
-      --text:    #1a1612;
-      --muted:   #7a6f65;
-      --accent:  #c8521a;
-      --accent2: #e8855a;
-      --border:  rgba(0,0,0,0.09);
-    }
-    [data-theme="dark"] {
-      --bg:      #130f0b;
-      --bg2:     #1d1710;
-      --card:    #1f1a14;
-      --text:    #f0ebe3;
-      --muted:   #9a8e82;
-      --accent:  #e06b30;
-      --accent2: #f09060;
-      --border:  rgba(255,255,255,0.07);
-    }
+  <link rel="stylesheet" href="/assets/css/global.css" />
+  <link rel="stylesheet" href="/assets/css/sub-pages.css" />
 
-    html { scroll-behavior: smooth; }
-    * { scrollbar-width: none; -ms-overflow-style: none; }
-    *::-webkit-scrollbar { display: none; }
-
-    body {
-      background: var(--bg); color: var(--text);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 400; line-height: 1.7; min-height: 100vh;
-      transition: background 0.35s, color 0.35s;
-    }
-
-    header {
-      position: sticky; top: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 18px 40px; background: var(--card);
-      border-bottom: 1px solid var(--border); backdrop-filter: blur(8px);
-    }
-    .logo {
-      display: flex; align-items: center; gap: 0;
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.5rem; font-weight: bold;
-      color: var(--accent); letter-spacing: -0.01em; text-decoration: none;
-    }
-    .logo span { color: var(--text); }
-    .logo-img { width: 40px; height: 40px; object-fit: contain; }
-    .theme-btn {
-      width: 36px; height: 36px; display: grid; place-items: center;
-      background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 50%; color: var(--muted); font-size: 1rem;
-      cursor: pointer; transition: border-color 0.2s, color 0.2s;
-    }
-    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-    .page-hero {
-      padding: 64px 24px 56px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-      color: #fff; text-align: center;
-    }
-    .page-hero img { width: 52px; height: 52px; object-fit: contain; margin-bottom: 16px; opacity: 0.95; }
-    .page-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.15; margin-bottom: 10px;
-    }
-    .page-hero p { font-size: 0.85rem; font-weight: 300; opacity: 0.82; }
-
-    .page-content { max-width: 780px; margin: 0 auto; padding: 64px 24px 100px; }
-
-    .back-link {
-      display: inline-flex; align-items: center; gap: 6px; margin-bottom: 40px;
-      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--accent); text-decoration: none; transition: gap 0.2s;
-    }
-    .back-link:hover { gap: 10px; }
-
-    .legal-meta {
-      font-size: 0.75rem; color: var(--muted);
-      margin-bottom: 48px; padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .legal-section { margin-bottom: 44px; }
-
-    .legal-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.3rem; font-weight: 400; color: var(--text);
-      margin-bottom: 14px; padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .legal-section p {
-      font-size: 0.88rem; color: var(--muted);
-      line-height: 1.9; margin-bottom: 12px;
-    }
-
-    .legal-section ul {
-      list-style: none; margin: 8px 0 12px;
-    }
-    .legal-section ul li {
-      font-size: 0.88rem; color: var(--muted);
-      padding: 5px 0 5px 18px; position: relative; line-height: 1.7;
-    }
-    .legal-section ul li::before {
-      content: '·'; position: absolute; left: 0;
-      color: var(--accent); font-weight: 700; font-size: 1.1rem;
-    }
-
-    .highlight-box {
-      background: var(--bg2); border: 1px solid var(--border);
-      border-left: 3px solid var(--accent); border-radius: 8px;
-      padding: 18px 22px; margin: 16px 0;
-    }
-    .highlight-box p { margin-bottom: 0; font-size: 0.84rem; }
-
-    footer {
-      background: var(--card); border-top: 1px solid var(--border);
-      padding: 32px 24px; text-align: center;
-      font-size: 0.72rem; color: var(--muted);
-    }
-    footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
-
-    html { overflow-x: hidden; }
-    body { overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-    body.nav-open { overflow: hidden; position: fixed; width: 100%; }
-    a, button { -webkit-tap-highlight-color: transparent; }
-    header { padding: 12px 40px; }
-    .sub-page-nav { display: flex; align-items: center; gap: 4px; }
-    .sub-page-nav-link { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 999px; text-decoration: none; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.02em; color: var(--muted); background: transparent; border: 1px solid transparent; transition: color 0.2s, border-color 0.2s, background 0.2s; }
-    .sub-page-nav-link:hover { color: var(--accent); border-color: var(--border); background: var(--bg2); }
-    .sub-nav-actions { display: flex; align-items: center; gap: 8px; }
-    .sub-saved-btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border-radius: 999px; text-decoration: none; font-size: 0.82rem; font-weight: 600; color: var(--muted); background: transparent; border: none; transition: color 0.2s ease, transform 0.18s ease; white-space: nowrap; }
-    .sub-saved-btn:hover { color: var(--accent); transform: translateY(-1px); }
-    .theme-btn { background: transparent; border: none; transition: color 0.2s, transform 0.18s; }
-    .theme-btn:hover { color: var(--accent); transform: scale(1.15); }
-    .sub-mobile-btn { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; background: transparent; border: none; cursor: pointer; padding: 4px; border-radius: 6px; transition: background 0.2s; }
-    .sub-mobile-btn:hover { background: var(--bg2); }
-    .sub-mobile-btn span { display: block; width: 22px; height: 1.5px; background: var(--muted); border-radius: 2px; transition: background 0.2s; }
-    .sub-mobile-btn:hover span { background: var(--accent); }
-    .sub-nav-drawer { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 99999; pointer-events: none; visibility: hidden; transition: visibility 0s linear 0.35s; }
-    .sub-nav-drawer.open { pointer-events: all; visibility: visible; transition: visibility 0s linear 0s; }
-    .sub-nav-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); backdrop-filter: blur(3px); opacity: 0; transition: opacity 0.3s ease; }
-    .sub-nav-drawer.open .sub-nav-overlay { opacity: 1; }
-    .sub-nav-panel { position: fixed; top: 0; right: 0; width: 260px; max-width: 82vw; height: 100vh; background: var(--card); border-left: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; overflow-x: hidden; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: -8px 0 48px rgba(0,0,0,0.18); will-change: transform; z-index: 1; }
-    .sub-nav-drawer.open .sub-nav-panel { transform: translateX(0); }
-    .sub-nav-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); }
-    .sub-nav-title { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--text); }
-    .sub-nav-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer; color: var(--muted); font-size: 1.3rem; border-radius: 50%; transition: background 0.2s, color 0.2s; }
-    .sub-nav-close:hover { background: var(--bg2); color: var(--accent); }
-    .sub-nav-links { display: flex; flex-direction: column; padding: 12px 0; flex: 1; }
-    .sub-nav-link { display: flex; align-items: center; gap: 12px; padding: 14px 20px; text-decoration: none; font-size: 0.9rem; font-weight: 600; color: var(--text); border-bottom: 1px solid var(--border); transition: background 0.18s, color 0.18s; }
-    .sub-nav-link:last-child { border-bottom: none; }
-    .sub-nav-link:hover { background: var(--bg2); color: var(--accent); }
-    .sub-nav-link svg { flex-shrink: 0; opacity: 0.7; }
-    footer { padding: 28px 40px 24px; text-align: left; }
-    .sub-footer-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; padding-bottom: 20px; margin-bottom: 16px; border-bottom: 1px solid var(--border); }
-    .sub-footer-brand { display: flex; align-items: center; gap: 8px; font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--text); }
-    .sub-footer-links { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .sub-footer-links a { font-size: 0.78rem; font-weight: 600; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-    .sub-footer-links a:hover { color: var(--accent); }
-    .sub-back-top { display: inline-flex; align-items: center; gap: 5px; padding: 7px 16px; background: var(--bg2); border: 1px solid var(--border); border-radius: 999px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: border-color 0.2s, color 0.2s, transform 0.15s; }
-    .sub-back-top:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-    .sub-footer-copy { font-size: 0.7rem; color: var(--muted); opacity: 0.7; }
-
-    @media (max-width: 768px) { .sub-page-nav { display: none; } .sub-mobile-btn { display: flex; } }
-    @media (min-width: 769px) { .sub-mobile-btn { display: none !important; } .sub-nav-drawer { visibility: hidden !important; pointer-events: none !important; } }
-    @media (max-width: 600px) {
-      header { padding: 12px 18px; }
-      .logo { font-size: 1.25rem; }
-      .logo-img { width: 34px; height: 34px; }
-      .page-hero { padding: 48px 20px 40px; }
-      .page-content { padding: 40px 20px 72px; }
-      footer { padding: 24px 20px 20px; }
-      .sub-footer-top { flex-direction: column; align-items: flex-start; gap: 12px; }
-      .sub-footer-links { gap: 12px; }
-    }
-  </style>
 </head>
 <body>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K8SG3X4S"
@@ -229,7 +54,7 @@
 
   <header>
     <a href="index.html" class="logo">
-      <img src="assets/images/ui/favicon.png" alt="PinnedPicks Logo" class="logo-img" />
+      <img src="/assets/images/ui/favicon.png" alt="PinnedPicks Logo" class="logo-img" />
       Pinned<span>Picks</span>
     </a>
     <nav class="sub-page-nav" aria-label="Site navigation">
@@ -239,7 +64,7 @@
       <a class="sub-page-nav-link" href="terms-and-conditions.html">Terms</a>
     </nav>
     <div class="sub-nav-actions">
-      <a href="saved.html" class="sub-saved-btn" aria-label="Saved Pins">
+      <a href="../saved.html" class="sub-saved-btn" aria-label="Saved Pins">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
         Saved
       </a>
@@ -283,7 +108,7 @@
   </div>
 
   <div class="page-hero">
-    <img src="assets/images/ui/favicon.png" alt="PinnedPicks Logo" />
+    <img src="/assets/images/ui/favicon.png" alt="PinnedPicks Logo" />
     <h1>Terms &amp; Conditions</h1>
     <p>PinnedPicks™ by Centralyze. Effective Date: May 21, 2026</p>
   </div>
@@ -396,7 +221,7 @@
   <footer>
     <div class="sub-footer-top">
       <div class="sub-footer-brand">
-        <img src="assets/images/ui/favicon.png" alt="PinnedPicks Logo" style="width:24px;height:24px;object-fit:contain;" />
+        <img src="/assets/images/ui/favicon.png" alt="PinnedPicks Logo" style="width:24px;height:24px;object-fit:contain;" />
         <span><strong style="color:var(--accent);">Pinned</strong>Picks™</span>
       </div>
       <div class="sub-footer-links">
