@@ -4,48 +4,42 @@
 
   <url>
     <loc>https://www.pinnedpicks.gt.tc/</loc>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-05-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.pinnedpicks.gt.tc/assets/images/ui/og-cover.jpg</image:loc>
+      <image:title>PinnedPicks™ — Curated Shopee, SHEIN and Amazon Picks</image:title>
+      <image:caption>Hand-picked trending products from Shopee, SHEIN, and Amazon curated for Philippine shoppers.</image:caption>
+    </image:image>
   </url>
 
   <url>
-    <loc>https://www.pinnedpicks.gt.tc/about.html</loc>
+    <loc>https://www.pinnedpicks.gt.tc/pages/about.html</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://www.pinnedpicks.gt.tc/saved.html</loc>
+    <loc>https://www.pinnedpicks.gt.tc/pages/saved.html</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://www.pinnedpicks.gt.tc/privacypolicy.html</loc>
-    <lastmod>2026-05-20</lastmod>
+    <loc>https://www.pinnedpicks.gt.tc/pages/legal/privacy-policy.html</loc>
+    <lastmod>2026-05-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
-    <loc>https://www.pinnedpicks.gt.tc/termsandconditions.html</loc>
-    <lastmod>2026-05-20</lastmod>
+    <loc>https://www.pinnedpicks.gt.tc/pages/legal/terms-and-conditions.html</loc>
+    <lastmod>2026-05-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
-  <url>
-    <loc>https://www.pinnedpicks.gt.tc/</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://www.pinnedpicks.gt.tc/webimages/og-cover.jpg</image:loc>
-      <image:title>PinnedPicks™ - Curated Shopee, SHEIN and Amazon Picks</image:title>
-    </image:image>
-  </url>
-  
 </urlset>
