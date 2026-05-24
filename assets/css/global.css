@@ -650,8 +650,8 @@
     .card {
       display: flex;
       flex-direction: column;
-      height: 100%;
-      align-self: stretch;
+      height: auto;
+      align-self: flex-start;
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -671,8 +671,10 @@
       width: 100%;
       aspect-ratio: 3 / 4;
       object-fit: cover;
+      object-position: center top;
       display: block;
       background: var(--bg2);
+      flex-shrink: 0;
     }
 
     .card-img.pin-portrait {
@@ -1723,7 +1725,7 @@
         grid-auto-columns: calc((100vw - 48px) / 2.2) !important;
         gap: 10px !important;
         padding: 4px 20px !important;
-        align-items: stretch !important;
+        align-items: start !important;
       }
 
       .card-img {
