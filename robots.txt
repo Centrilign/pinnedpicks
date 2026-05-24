@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /404.html
+Disallow: /cdn-cgi/
 
 Sitemap: https://www.pinnedpicks.gt.tc/sitemap.xml
