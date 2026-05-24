@@ -32,10 +32,14 @@ function renderSavedPins() {
     card.target    = '_blank';
     card.rel       = 'noopener nofollow';
 
+    const imgSrc = (pin.image || '').startsWith('http') || (pin.image || '').startsWith('/')
+      ? pin.image
+      : '/' + pin.image;
+
     card.innerHTML = `
       <img
         class="card-img"
-        src="${pin.image}"
+        src="${imgSrc}"
         alt="${pin.title}"
         loading="lazy"
       />
