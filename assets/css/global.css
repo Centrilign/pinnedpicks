@@ -650,8 +650,8 @@
     .card {
       display: flex;
       flex-direction: column;
-      height: 100%;
-      align-self: stretch;
+      height: auto;
+      align-self: flex-start;
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -679,7 +679,7 @@
         aspect-ratio: 1 / 1;
         object-position: center top;
     }
-    
+
     .card-body {
       flex: 1;
       display: flex;
@@ -694,7 +694,7 @@
       font-weight: 400;
       line-height: 1.35;
       color: var(--text);
-      min-height: 3.93rem;
+      min-height: unset;
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
@@ -1727,11 +1727,11 @@
       }
 
       .card-img {
-        aspect-ratio: 4 / 5;
+        aspect-ratio: 1 / 1;
       }
 
       .card-img.pin-portrait {
-        aspect-ratio: 4 / 5;
+        aspect-ratio: 1 / 1;
         object-position: center top;
       }
 
