@@ -1,193 +1,218 @@
+<div align="center">
+
+<img src="/assets/images/ui/favicon.png" alt="PinnedPicks Logo" width="72" />
+
 # PinnedPicks™
 
-A modern curated product discovery platform focused on stylish, practical, and trend-driven finds across fashion, tech, lifestyle, room decor, beauty, and everyday essentials.
-PinnedPicks™ combines editorial-style browsing with ecommerce inspiration to help users discover products more efficiently without endlessly scrolling through multiple shopping apps and marketplaces.
+**A modern curated product discovery platform — Philippines**
+
+*Find trending products from Shopee, SHEIN, and Amazon without the endless scroll.*
+
+[![Status](https://img.shields.io/badge/status-active%20development-c8521a?style=flat-square)](https://www.pinnedpicks.gt.tc/)
+[![Built With](https://img.shields.io/badge/built%20with-HTML%20%7C%20CSS%20%7C%20Vanilla%20JS-4a90d9?style=flat-square)](#technologies)
+[![Hosted On](https://img.shields.io/badge/hosted%20on-GitHub%20Pages-24292e?style=flat-square&logo=github)](https://www.pinnedpicks.gt.tc/)
+[![License](https://img.shields.io/badge/license-Proprietary-gray?style=flat-square)](#license)
+[![Affiliate](https://img.shields.io/badge/affiliate-Shopee%20%7C%20SHEIN%20%7C%20Amazon-f05a28?style=flat-square)](#affiliate-disclosure)
+
+[Visit Site](https://www.pinnedpicks.gt.tc/) · [Submit Feedback](https://forms.gle/m9ZJ9iqkeFS1zyig6) · [Saved Pins](https://www.pinnedpicks.gt.tc/pages/saved.html)
+
+</div>
 
 ---
 
-# About The Project
+## What Is PinnedPicks™?
 
-PinnedPicks™ was created as an independent early-stage web platform focused on simplifying online product discovery.
-Instead of overwhelming users with cluttered catalogs and endless listings, PinnedPicks™ focuses on:
+PinnedPicks™ is a curated product discovery platform designed to cut through the noise of modern online shopping. Instead of overwhelming users with cluttered catalogs and endless listings, it focuses on hand-picked, editorial-style collections organized by category — fashion, tech, lifestyle, room décor, beauty, and everyday essentials.
 
-* curated product collections
-* visual-first browsing
-* clean editorial presentation
-* lightweight user experience
-* mobile-friendly discovery
-* practical and trend-aware recommendations
-
-The platform currently features curated products from affiliate partner ecosystems including:
-
-* Shopee
-* SHEIN
-* Amazon
-
-Users can browse collections by category, save products locally, and revisit their favorite finds through a dedicated Saved Pins experience.
+The goal is simple: help people discover products worth exploring, without opening five different apps.
 
 ---
 
-# Vision
+## About the Project
 
-PinnedPicks™ aims to evolve into a modern product discovery hub where users can:
+PinnedPicks™ started as an independent early-stage web platform with a clear focus — make product discovery feel intentional rather than exhausting.
 
-* discover curated online finds faster
-* browse visually organized collections
-* save products for later inspiration
-* explore practical, stylish, and affordable recommendations
-* enjoy a lightweight, responsive browsing experience across devices
+The platform currently curates products from three affiliate partner ecosystems:
 
-The long-term goal is to create a cleaner alternative to traditional affiliate catalog websites by combining:
+| Platform | Region Focus |
+|----------|-------------|
+| **Shopee** | Philippines & Southeast Asia |
+| **SHEIN** | Global Fashion |
+| **Amazon** | Global Essentials & Tech |
 
-* editorial curation
-* ecommerce inspiration
-* modern UI/UX principles
-* responsive web performance
-* community-driven improvement
+Users can browse collections by category, save products locally to their device, and revisit their favorite finds through a dedicated **Saved Pins** experience — no account or login required.
 
 ---
 
-# Core Features
+## Core Features
 
-## Product Discovery
+### 🔍 Product Discovery
+- Curated product collections across multiple categories
+- Pinterest-inspired editorial card layout
+- Horizontal browsing sections optimized for mobile
+- Responsive product grid with smooth interactions
+- In-page search across all curated products
 
-* Curated product collections
-* Organized browsing categories
-* Pinterest-inspired editorial presentation
-* Responsive product card system
-* Mobile-optimized browsing
+### 📌 Save Pins System
+- Save products locally using browser `localStorage`
+- Persistent saved state across sessions — no login needed
+- Dedicated `/pages/saved.html` page for bookmarked picks
+- Dynamic client-side rendering of saved products
+- Remove individual saves or clear all at once
 
-## Save Pins System
+### 🌗 Theme System
+- Dark mode / light mode toggle
+- Theme preference persisted via `localStorage`
+- Consistent theming across all pages
+- Respects system `prefers-color-scheme` for initial state
 
-* Save products locally using browser localStorage
-* Persistent saved state across sessions
-* Dedicated Saved Pins page
-* Dynamic rendering of saved products
-* Fully client-side implementation
+### 📱 Responsive & Mobile-First
+- Mobile-first layout and spacing
+- Touch-friendly horizontal scroll sections
+- Optimized typography scaling across breakpoints
+- PWA-ready with `manifest.json` and home screen install support
 
-## Theme System
-
-* Dark mode / light mode toggle
-* Theme persistence using localStorage
-* Consistent cross-page theming
-
-## Responsive Design
-
-* Mobile-first optimizations
-* Touch-friendly interactions
-* Smooth horizontal browsing sections
-* Optimized spacing and typography scaling
-
----
-
-# Technologies Used
-
-PinnedPicks™ is intentionally lightweight and currently built using:
-
-* HTML5
-* CSS3
-* Vanilla JavaScript
-* localStorage
-* GitHub Pages
-
-No external frameworks or backend systems are currently used.
+### 🔎 SEO & Discoverability
+- Enterprise-grade metadata architecture across all pages
+- Full Open Graph and Twitter/X card implementation
+- JSON-LD structured data: `WebSite`, `Organization`, `CollectionPage`, `AboutPage`, `WebPage`, `BreadcrumbList`, `FAQPage`, `SearchAction`
+- Google, Pinterest, and Bing site verification
+- Canonical URLs, geo metadata, and `robots` directives
+- Accurate XML sitemap with image indexing
 
 ---
 
-# Development Status
+## Technologies
 
-PinnedPicks™ is currently in active early-stage development.
-The platform is temporarily hosted using GitHub Pages infrastructure while features, systems, and overall UX continue to evolve.
+PinnedPicks™ is intentionally lightweight — no frameworks, no backend, no build step.
 
-Current development priorities include:
+| Layer | Technology |
+|-------|-----------|
+| Markup | HTML5 (semantic) |
+| Styling | CSS3 (custom properties, no preprocessor) |
+| Logic | Vanilla JavaScript (ES6+) |
+| Persistence | Browser `localStorage` |
+| Fonts | Google Fonts — DM Serif Display, DM Sans |
+| Analytics | Google Analytics 4 via Google Tag Manager |
+| Hosting | GitHub Pages |
+| PWA | Web App Manifest |
 
-* improving browsing experience
-* expanding curated product collections
-* refining mobile UX
-* optimizing frontend performance
-* improving accessibility
-* enhancing save and personalization systems
-* maintaining clean scalable architecture
-
----
-
-# Philosophy
-
-PinnedPicks™ is built around the idea that product discovery should feel:
-
-* intentional
-* visually clean
-* lightweight
-* inspiring
-* practical
-* user-focused
-
-The goal is not to create another overwhelming ecommerce catalog, but a curated discovery experience that helps users quickly find products worth exploring.
+No external UI frameworks, no npm dependencies, no server-side rendering.
 
 ---
 
-# Feedback & Suggestions
+## Project Structure
 
-Community feedback plays an important role in improving the platform.
-If you encounter issues, bugs, usability problems, or have feature suggestions, feedback is highly appreciated.
-Submit feedback here:
-[https://forms.gle/m9ZJ9iqkeFS1zyig6](https://forms.gle/m9ZJ9iqkeFS1zyig6)
-
----
-
-# Affiliate Disclosure
-
-PinnedPicks™ participates in affiliate programs with selected ecommerce platforms.
-Some outbound product links may generate a commission when purchases are made through affiliate referrals at no additional cost to users.
-All product selections and recommendations are curated independently.
-
----
-
-# Local Storage Usage
-
-PinnedPicks™ uses browser localStorage for:
-
-* theme preference persistence
-* saved/bookmarked product pins
-
-This data remains stored locally on the user's device and is not transmitted to external servers.
-
----
-
-# Future Goals
-
-Planned future improvements may include:
-
-* advanced filtering and search
-* personalized recommendations
-* trending product systems
-* improved product categorization
-* expanded platform integrations
-* richer editorial collections
-* enhanced accessibility support
-* performance optimizations
+```
+pinnedpicks/
+├── index.html                        # Homepage — main product discovery feed
+├── sitemap.xml                       # XML sitemap for search engine indexing
+├── robots.txt                        # Crawl directives
+├── manifest.json                     # PWA web app manifest
+├── pages/
+│   ├── about.html                    # About page
+│   ├── saved.html                    # Saved Pins page
+│   └── legal/
+│       ├── privacy-policy.html       # Privacy Policy
+│       └── terms-and-conditions.html # Terms & Conditions
+└── assets/
+    ├── css/
+    │   ├── global.css                # Shared styles and design tokens
+    │   └── sub-pages.css            # Styles for sub-pages
+    ├── js/
+    │   ├── theme.js                  # Dark/light mode logic
+    │   ├── products.js               # Product data and rendering
+    │   ├── saved-pins.js             # Save/unsave logic
+    │   ├── saved-page.js            # Saved Pins page rendering
+    │   ├── slider.js                # Horizontal scroll behavior
+    │   ├── nav.js                   # Mobile navigation drawer
+    │   ├── search.js                # In-page search system
+    │   └── faq.js                   # FAQ accordion
+    └── images/
+        └── ui/
+            ├── favicon.png           # Logo / favicon (512×512)
+            └── og-cover.jpg          # Open Graph social preview image (1200×630)
+```
 
 ---
 
-# Project Status
+## Development Status
 
-This project is independently developed and continuously evolving.
+PinnedPicks™ is in **active early-stage development**, temporarily hosted on GitHub Pages while features and UX continue to evolve.
 
-PinnedPicks™ is actively being refined with a strong focus on:
+### Current Priorities
+- Expanding curated product collections
+- Refining mobile browsing experience
+- Improving accessibility (ARIA, keyboard nav, contrast)
+- Optimizing frontend performance (LCP, CLS)
+- Enhancing save and personalization systems
 
-* scalability
-* user experience
-* frontend performance
-* clean interface design
-* long-term maintainability
+### Planned Future Improvements
+- Advanced filtering and category search
+- Personalized or trending product signals
+- Expanded platform integrations beyond Shopee / SHEIN / Amazon
+- Richer editorial collection pages
+- Performance optimizations for Core Web Vitals
 
 ---
 
-# License
+## Philosophy
 
-This project and its branding assets are currently proprietary unless otherwise stated.
-Please do not redistribute branded assets, platform identity elements, or curated content without permission.
+PinnedPicks™ is built around the idea that product discovery should feel **intentional** — not overwhelming.
+
+> Not another bloated affiliate catalog. A curated discovery experience that helps users quickly find products worth exploring.
+
+Design principles that guide every decision:
+
+- **Visually clean** — editorial over catalog
+- **Lightweight** — no unnecessary dependencies
+- **Inspiring** — products presented with context, not just specs
+- **Practical** — real picks for real people
+- **User-focused** — no dark patterns, no spam
 
 ---
 
-PinnedPicks™ by Centralyze
+## Affiliate Disclosure
+
+PinnedPicks™ participates in affiliate programs with Shopee, SHEIN, Amazon, and other selected ecommerce platforms. Some outbound product links may generate a commission when purchases are made through affiliate referrals — **at no additional cost to you**.
+
+All product selections and editorial recommendations are curated independently. Affiliate relationships do not influence which products are featured.
+
+---
+
+## Local Storage Usage
+
+PinnedPicks™ uses `localStorage` for two things only:
+
+| Key | Purpose |
+|-----|---------|
+| Theme preference | Remembers light or dark mode between visits |
+| Saved Pins | Persists bookmarked products locally on your device |
+
+This data **never leaves your device** and is not transmitted to any external server. You can clear it at any time through your browser settings.
+
+---
+
+## Feedback & Suggestions
+
+Community feedback plays an important role in improving the platform. Bug reports, usability issues, and feature suggestions are all appreciated.
+
+**[Submit Feedback →](https://forms.gle/m9ZJ9iqkeFS1zyig6)**
+
+---
+
+## License
+
+The PinnedPicks™ brand, logo, and platform assets are **proprietary**. Please do not redistribute branded assets, platform identity elements, or curated content without permission.
+
+The underlying HTML/CSS/JS structure is independently developed by **Centralyze**.
+
+---
+
+<div align="center">
+
+**PinnedPicks™ by Centralyze** · Founded May 2026 · Philippines 🇵🇭
+
+[pinnedpicks.gt.tc](https://www.pinnedpicks.gt.tc/) · [Pinterest](https://ph.pinterest.com/centralyze_pinnedpicks/) · [Facebook](https://www.facebook.com/profile.php?id=61589260348084) · [Instagram](https://www.instagram.com/pinnedpicksbycentralyze/)
+
+</div>
