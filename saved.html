@@ -444,6 +444,21 @@
       .card-body { padding: 14px; }
       .nav-actions { gap: 8px; }
       .browse-nav-btn { height: 34px; padding: 0 12px; font-size: 0.76rem; }
+
+      .saved-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 0.65rem;
+        font-weight: 700;
+        margin-left: 2px;
+      }
     }
 
   </style>
@@ -692,11 +707,30 @@
     }
 
     renderSavedPins();
+    updateSavedBadge();
 
     function closeSubNav() { document.getElementById('subNavDrawer').classList.remove('open'); document.body.classList.remove('nav-open'); }
     document.getElementById('subMobileBtn').addEventListener('click', function() { document.getElementById('subNavDrawer').classList.add('open'); document.body.classList.add('nav-open'); });
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeSubNav(); });
 
+    function updateSavedBadge() {
+    const count = getSavedPins().length;
+    const btn = document.querySelector('.saved-nav-btn');
+    if (!btn) return;
+    const existing = btn.querySelector('.saved-badge');
+    if (count > 0) {
+      if (existing) { existing.textContent = count; }
+      else {
+        const badge = document.createElement('span');
+        badge.className = 'saved-badge';
+        badge.textContent = count;
+        btn.appendChild(badge);
+      }
+    } else if (existing) {
+      existing.remove();
+    }
+  }
+    
   </script>
 
 </body>
