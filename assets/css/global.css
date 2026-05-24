@@ -1726,6 +1726,16 @@
         align-items: stretch !important;
       }
 
+      /* Fix portrait images on mobile */
+      .card-img {
+        aspect-ratio: 3 / 4;
+      }
+
+      .card-img.pin-portrait {
+        aspect-ratio: 3 / 4;
+        object-position: center top;
+      }
+
       /* Card text */
       .card h3 {
         font-size: 0.9rem;
