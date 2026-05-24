@@ -2713,9 +2713,9 @@
     </a>
 
     <nav class="header-platform-nav" aria-label="Platform navigation">
-      <a class="platform-nav-link" href="#" onclick="document.querySelector('.shop-section[data-section=shopee]').scrollIntoView({behavior:'smooth'});return false;">Shopee</a>
-      <a class="platform-nav-link" href="#" onclick="document.querySelector('.shop-section[data-section=shein]').scrollIntoView({behavior:'smooth'});return false;">SHEIN</a>
-      <a class="platform-nav-link" href="#" onclick="document.querySelector('.shop-section[data-section=amazon]').scrollIntoView({behavior:'smooth'});return false;">Amazon</a>
+      <a class="platform-nav-link" href="#shopee">Shopee</a>
+      <a class="platform-nav-link" href="#shein">Shein</a>
+      <a class="platform-nav-link" href="#amazon">Amazon</a>
       <a class="platform-nav-link" href="#faq" onclick="document.getElementById('faq').scrollIntoView({behavior:'smooth'});return false;">FAQ</a>
       <a class="platform-nav-link footer-nav-link" href="#" onclick="document.querySelector('footer').scrollIntoView({behavior:'smooth'});return false;">Footer</a>
     </nav>
@@ -2760,8 +2760,8 @@
   <!-- ============================================================
        HERO
   ============================================================ -->
-  <div class="hero">
-    <div class="hero-inner">
+  <section class="hero" aria-label="Platform overview">
+  <div class="hero-inner">
       <div class="hero-content">
         <p class="hero-eyebrow">Curated Product Discovery</p>
         <h1>Hand-picked finds.<br><em>Real deals.</em></h1>
@@ -2834,7 +2834,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </section>
   <!-- ============================================================
        MAIN
   ============================================================ -->
@@ -2843,11 +2843,11 @@
     <!-- ===========================================================
          SHOPEE SECTION
     =========================================================== -->
-    <section class="shop-section" data-section="shopee">
+    <section class="shop-section" data-section="shopee" id="shopee">
       <div class="section-header">
         <div class="section-header-left">
           <span class="shop-badge badge-shopee">Shopee</span>
-          <span class="section-title">Shopee Picks</span>
+          <h2 class="section-title">Shopee Picks</h2>
         </div>
       </div>
 
@@ -2913,11 +2913,11 @@
     <!-- ===========================================================
          SHEIN SECTION
     =========================================================== -->
-    <section class="shop-section" data-section="shein">
+    <<section class="shop-section" data-section="shopee" id="shein">
       <div class="section-header" onclick="toggleSection(this)">
         <div class="section-header-left">
           <span class="shop-badge badge-shein">Shein</span>
-          <span class="section-title">Shein Picks</span>
+          <h2 class="section-title">Shein Picks</h2>
         </div>
       </div>
 
@@ -2983,11 +2983,11 @@
     <!-- ===========================================================
          AMAZON SECTION
     =========================================================== -->
-    <section class="shop-section" data-section="amazon">
+    <section class="shop-section" data-section="shopee" id="amazon">
       <div class="section-header" onclick="toggleSection(this)">
         <div class="section-header-left">
           <span class="shop-badge badge-amazon">Amazon</span>
-          <span class="section-title">Amazon Picks</span>
+          <h2 class="section-title">Amazon Picks</h2>
         </div>
       </div>
 
@@ -4368,7 +4368,7 @@
                <p class="svp-empty-sub">Try "bag", "shopee", "fashion", or "Amazon".</p>
              </div>`
           : results.map(r => `
-              <a class="card" href="${r.href}" target="_blank" rel="noopener nofollow" data-product="${r.title}" data-platform="${r.platform}" data-category="${r.category || ''}">
+              <a class="card" href="${r.href}" target="_blank" rel="noopener nofollow" aria-label="View ${r.title} on ${r.platform}" data-product="${r.title}" data-platform="${r.platform}" data-category="${r.category || ''}">
                 <img class="card-img${r.imgClass ? ' ' + r.imgClass : ''}" src="${r.img}" alt="${r.alt}" loading="lazy" />
                 <div class="card-body">
                   <h3>${r.title}</h3>
