@@ -1726,7 +1726,6 @@
         align-items: stretch !important;
       }
 
-      /* Fix portrait images on mobile */
       .card-img {
         aspect-ratio: 3 / 4;
       }
