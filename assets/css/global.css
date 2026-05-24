@@ -676,6 +676,7 @@
     }
 
     .card-img.pin-portrait {
+      aspect-ratio: 3 / 4;
       object-position: center top;
     }
 
