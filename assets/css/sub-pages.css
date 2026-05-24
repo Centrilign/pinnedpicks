@@ -1,8 +1,4 @@
 
-    /* ── Reset, :root variables, body, html, .logo, .theme-btn
-   are inherited from global.css which is imported first.
-   Only subpage-specific chrome begins here. ── */
-
     /* HERO */
     .page-hero {
       padding-top: 64px;
