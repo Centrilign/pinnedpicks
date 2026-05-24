@@ -101,41 +101,6 @@ No external UI frameworks, no npm dependencies, no server-side rendering.
 
 ---
 
-## Project Structure
-
-```
-pinnedpicks/
-├── index.html                        # Homepage — main product discovery feed
-├── sitemap.xml                       # XML sitemap for search engine indexing
-├── robots.txt                        # Crawl directives
-├── manifest.json                     # PWA web app manifest
-├── pages/
-│   ├── about.html                    # About page
-│   ├── saved.html                    # Saved Pins page
-│   └── legal/
-│       ├── privacy-policy.html       # Privacy Policy
-│       └── terms-and-conditions.html # Terms & Conditions
-└── assets/
-    ├── css/
-    │   ├── global.css                # Shared styles and design tokens
-    │   └── sub-pages.css            # Styles for sub-pages
-    ├── js/
-    │   ├── theme.js                  # Dark/light mode logic
-    │   ├── products.js               # Product data and rendering
-    │   ├── saved-pins.js             # Save/unsave logic
-    │   ├── saved-page.js            # Saved Pins page rendering
-    │   ├── slider.js                # Horizontal scroll behavior
-    │   ├── nav.js                   # Mobile navigation drawer
-    │   ├── search.js                # In-page search system
-    │   └── faq.js                   # FAQ accordion
-    └── images/
-        └── ui/
-            ├── favicon.png           # Logo / favicon (512×512)
-            └── og-cover.jpg          # Open Graph social preview image (1200×630)
-```
-
----
-
 ## Development Status
 
 PinnedPicks™ is in **active early-stage development**, temporarily hosted on GitHub Pages while features and UX continue to evolve.
