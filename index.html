@@ -4361,7 +4361,7 @@
                <p class="svp-empty-sub">Try "bag", "shopee", "fashion", or "Amazon".</p>
              </div>`
           : results.map(r => `
-              <a class="card" href="${r.href}" target="_blank" rel="noopener nofollow">
+              <a class="card" href="${r.href}" target="_blank" rel="noopener nofollow" data-product="${r.title}" data-platform="${r.platform}" data-category="${r.category || ''}">
                 <img class="card-img${r.imgClass ? ' ' + r.imgClass : ''}" src="${r.img}" alt="${r.alt}" loading="lazy" />
                 <div class="card-body">
                   <h3>${r.title}</h3>
