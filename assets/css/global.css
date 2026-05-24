@@ -500,7 +500,7 @@
     main {
       max-width: 1600px;
       margin: 0 auto;
-      padding: 32px 16px 80px;
+      padding: 32px 16px 16px;
     }
 
     /* ============================================================
@@ -2414,7 +2414,7 @@
     .faq-section {
       max-width: 860px;
       margin: 0 auto 0;
-      padding: 24px 24px 64px;
+      padding: 0 24px 64px;
     }
 
     .faq-eyebrow {
