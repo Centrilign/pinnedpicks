@@ -650,8 +650,8 @@
     .card {
       display: flex;
       flex-direction: column;
-      height: auto;
-      align-self: flex-start;
+      height: 100%;
+      align-self: stretch;
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -668,20 +668,13 @@
     }
 
     .card-img {
-      width: 100%;
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      background: var(--bg2);
-      flex-shrink: 0;
-    }
+        aspect-ratio: 1 / 1;
+      }
 
-    .card-img.pin-portrait {
-      aspect-ratio: 1/1;
-      object-position: center top;
-    }
-
+      .card-img.pin-portrait {
+        aspect-ratio: 1 / 1;
+        object-position: center top;
+      }
     .card-body {
       flex: 1;
       display: flex;
