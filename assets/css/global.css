@@ -649,8 +649,8 @@
     .card {
       display: flex;
       flex-direction: column;
-      height: auto;
-      align-self: flex-start;
+      height: 100%;
+      align-self: stretch;
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -660,21 +660,22 @@
       transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s;
     }
 
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.13);
+      border-color: var(--accent);
+    }
+
+    /* Slider: all cards same height per row */
     .slider-grid .card {
       height: 100%;
       align-self: stretch;
     }
 
-    /* Category grid cards stay natural height */
+    /* Category grid: all cards same height per row */
     .category-cards .card {
-      height: auto;
-      align-self: flex-start;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.13);
-      border-color: var(--accent);
+      height: 100%;
+      align-self: stretch;
     }
 
     .card-img {
@@ -1737,13 +1738,13 @@
       }
 
       .card-img {
-        aspect-ratio: 1 / 1;
-        max-height: 160px;
+        aspect-ratio: 3 / 4;
+        max-height: 220px;
       }
 
       .card-img.pin-portrait {
-        aspect-ratio: 1 / 1;
-        max-height: 160px;
+        aspect-ratio: 3 / 4;
+        max-height: 220px;
         object-position: center top;
       }
 
