@@ -105,6 +105,7 @@
     ]
   }
   </script>
+
   <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -159,7 +160,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600&display=swap" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600&display=swap" media="print" onload="this.media='all'" />
   <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600&display=swap" />
   </noscript>
 
   <link rel="manifest" href="/manifest.json" />
@@ -175,12 +176,13 @@
   <link rel="stylesheet" href="/assets/css/global.css" />
 
 </head>
+
 <body>
       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K8SG3X4S"
       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- ============================================================
-       HEADER
+       this is the header ;)
   ============================================================ -->
   <header>
     <a class="logo" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="text-decoration:none;">
@@ -197,13 +199,13 @@
     </nav>
 
     <div class="nav-actions">
-      <!-- Search -->
+      <!-- search -->
       <div class="search-wrapper" id="searchWrapper">
         <button class="search-toggle-btn" id="searchToggleBtn" aria-label="Search products">
           <span class="search-icon">&#9906;</span>
           <span>Search</span>
         </button>
-        <!-- Desktop inline input -->
+
         <div class="search-input-wrap" id="searchInputWrap">
           <input type="text" id="searchInputDesktop" placeholder="Search products…" autocomplete="off" spellcheck="false" />
           <button class="search-input-clear" id="searchClearBtnDesktop" aria-label="Clear search">✕</button>
@@ -221,7 +223,6 @@
     </div>
       </header>      
 
-  <!-- Search overlay bar (full-width, fixed, above header) -->
   <div class="search-overlay-bar" id="searchOverlayBar" role="search">
     <div class="search-overlay-input-wrap">
       <span class="search-overlay-icon">&#9906;</span>
@@ -234,7 +235,7 @@
   <div class="search-dropdown" id="searchDropdown"></div>
 
   <!-- ============================================================
-       HERO
+       hero
   ============================================================ -->
   <section class="hero" aria-label="Platform overview">
   <div class="hero-inner">
@@ -312,12 +313,12 @@
     </div>
   </section>
   <!-- ============================================================
-       MAIN
+       main body
   ============================================================ -->
   <main>
 
     <!-- ===========================================================
-         SHOPEE SECTION
+         shopee
     =========================================================== -->
     <section class="shop-section" data-section="shopee" id="shopee">
       <div class="section-header">
@@ -387,7 +388,7 @@
 
 
     <!-- ===========================================================
-         SHEIN SECTION
+         shein
     =========================================================== -->
     <section class="shop-section" data-section="shein" id="shein">
       <div class="section-header" onclick="toggleSection(this)">
@@ -457,7 +458,7 @@
 
 
     <!-- ===========================================================
-         AMAZON SECTION
+         amazon
     =========================================================== -->
     <section class="shop-section" data-section="amazon" id="amazon">
       <div class="section-header" onclick="toggleSection(this)">
@@ -528,7 +529,7 @@
 
 
   <!-- ============================================================
-       FAQ
+       your questions lol
   ============================================================ -->
   <section class="faq-section" id="faq">
     <p class="faq-eyebrow">Got Questions</p>
@@ -589,7 +590,7 @@
   </section>
 
   <!-- ============================================================
-       FOOTER
+       footer
   ============================================================ -->
   <footer>
     <div class="footer-inner">
@@ -691,7 +692,7 @@
   </footer>
 
  <!-- ============================================================
-       MOBILE NAV DRAWER (outside header to avoid stacking context)
+       mobile nav
   ============================================================ -->
   <div class="mobile-nav-drawer" id="mobileNavDrawer">
     <div class="mobile-nav-overlay" onclick="closeMobileNav()"></div>
@@ -740,7 +741,7 @@
   </div>
 
 <!-- ============================================================
-       VIRTUAL SEARCH PAGE
+       search page
   ============================================================ -->
   <div class="search-virtual-page" id="searchVirtualPage" aria-hidden="true">
     <div class="svp-header">
@@ -761,7 +762,7 @@
   </div>
 
   <!-- ============================================================
-       JAVASCRIPT musttt be in orderr
+       js, musttt be in orderr. check first if theres bugs
   ============================================================ -->
 
   <script src="/assets/js/theme.js"></script>
