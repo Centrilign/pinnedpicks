@@ -2920,7 +2920,7 @@
     <!-- ===========================================================
          SHEIN SECTION
     =========================================================== -->
-    <<section class="shop-section" data-section="shopee" id="shein">
+    <section class="shop-section" data-section="shein" id="shein">
       <div class="section-header" onclick="toggleSection(this)">
         <div class="section-header-left">
           <span class="shop-badge badge-shein">Shein</span>
@@ -2990,7 +2990,7 @@
     <!-- ===========================================================
          AMAZON SECTION
     =========================================================== -->
-    <section class="shop-section" data-section="shopee" id="amazon">
+    <section class="shop-section" data-section="amazon" id="amazon">
       <div class="section-header" onclick="toggleSection(this)">
         <div class="section-header-left">
           <span class="shop-badge badge-amazon">Amazon</span>
@@ -4086,16 +4086,16 @@
   };
 
   // ── CARD RENDERER ──
-  function renderCards(containerId, productArray) {
+  function renderCards(containerId, productArray, platform) {
     const container = document.getElementById(containerId);
     if (!container || !productArray) return;
     container.innerHTML = productArray.map(p => `
       <a class="card" href="${p.href}" target="_blank" rel="noopener nofollow">
-        <img class="card-img${p.imgClass ? ' ' + p.imgClass : ''}" src="${p.img}" alt="${p.alt}" loading="lazy" />
+        <img class="card-img${p.imgClass ? ' ' + p.imgClass : ''}" src="${p.img}" alt="${p.alt}" loading="lazy" width="300" height="300" />
         <div class="card-body">
           <h3>${p.title}</h3>
           <div class="card-footer">
-            <span class="card-cta">View on ${r.platform} <span>→</span></span>
+            <span class="card-cta">View on ${platform} <span>→</span></span>
             <button class="save-btn" aria-label="Save product" type="button">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
@@ -4108,24 +4108,24 @@
   }
 
   // ── RENDER ALL ──
-  renderCards('shopee-best-1',       PRODUCTS.shopee_best_1);
-  renderCards('shopee-best-2',       PRODUCTS.shopee_best_2);
-  renderCards('shopee-fashion',      PRODUCTS.shopee_fashion);
-  renderCards('shopee-electronics',  PRODUCTS.shopee_electronics);
-  renderCards('shopee-health',       PRODUCTS.shopee_health);
-  renderCards('shopee-groceries',    PRODUCTS.shopee_groceries);
-  renderCards('shein-best-1',        PRODUCTS.shein_best_1);
-  renderCards('shein-best-2',        PRODUCTS.shein_best_2);
-  renderCards('shein-mens',          PRODUCTS.shein_mens);
-  renderCards('shein-womens',        PRODUCTS.shein_womens);
-  renderCards('shein-decor',         PRODUCTS.shein_decor);
-  renderCards('shein-accessories',   PRODUCTS.shein_accessories);
-  renderCards('amazon-best-1',       PRODUCTS.amazon_best_1);
-  renderCards('amazon-best-2',       PRODUCTS.amazon_best_2);
-  renderCards('amazon-fashion',      PRODUCTS.amazon_fashion);
-  renderCards('amazon-electronics',  PRODUCTS.amazon_electronics);
-  renderCards('amazon-health',       PRODUCTS.amazon_health);
-  renderCards('amazon-groceries',    PRODUCTS.amazon_groceries);
+  renderCards('shopee-best-1',       PRODUCTS.shopee_best_1,       'Shopee');
+  renderCards('shopee-best-2',       PRODUCTS.shopee_best_2,       'Shopee');
+  renderCards('shopee-fashion',      PRODUCTS.shopee_fashion,      'Shopee');
+  renderCards('shopee-electronics',  PRODUCTS.shopee_electronics,  'Shopee');
+  renderCards('shopee-health',       PRODUCTS.shopee_health,       'Shopee');
+  renderCards('shopee-groceries',    PRODUCTS.shopee_groceries,    'Shopee');
+  renderCards('shein-best-1',        PRODUCTS.shein_best_1,        'SHEIN');
+  renderCards('shein-best-2',        PRODUCTS.shein_best_2,        'SHEIN');
+  renderCards('shein-mens',          PRODUCTS.shein_mens,          'SHEIN');
+  renderCards('shein-womens',        PRODUCTS.shein_womens,        'SHEIN');
+  renderCards('shein-decor',         PRODUCTS.shein_decor,         'SHEIN');
+  renderCards('shein-accessories',   PRODUCTS.shein_accessories,   'SHEIN');
+  renderCards('amazon-best-1',       PRODUCTS.amazon_best_1,       'Amazon');
+  renderCards('amazon-best-2',       PRODUCTS.amazon_best_2,       'Amazon');
+  renderCards('amazon-fashion',      PRODUCTS.amazon_fashion,      'Amazon');
+  renderCards('amazon-electronics',  PRODUCTS.amazon_electronics,  'Amazon');
+  renderCards('amazon-health',       PRODUCTS.amazon_health,       'Amazon');
+  renderCards('amazon-groceries',    PRODUCTS.amazon_groceries,    'Amazon');
 
    // ══════════════════════════════════════════════════════════════
     //  SEARCH SYSTEM
