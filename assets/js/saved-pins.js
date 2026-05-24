@@ -20,7 +20,10 @@ function initSavedPins() {
 
     const title   = card.querySelector('h3')?.textContent.trim();
     const href    = card.getAttribute('href');
-    const img     = card.querySelector('.card-img')?.getAttribute('src');
+    const imgRaw  = card.querySelector('.card-img')?.getAttribute('src') || '';
+    const img     = imgRaw.startsWith('http') || imgRaw.startsWith('/')
+                    ? imgRaw
+                    : '/' + imgRaw;
     const saveBtn = card.querySelector('.save-btn');
 
     if (!title || !saveBtn) return;
