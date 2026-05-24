@@ -1729,12 +1729,17 @@
       }
 
       .card-img {
-        aspect-ratio: 3 / 4;
+        aspect-ratio: 4 / 5;
       }
 
       .card-img.pin-portrait {
-        aspect-ratio: 3 / 4;
+        aspect-ratio: 4 / 5;
         object-position: center top;
+      }
+
+      .card h3 {
+        min-height: unset;
+        -webkit-line-clamp: 2;
       }
 
       /* Card text */
