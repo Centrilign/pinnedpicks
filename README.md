@@ -170,14 +170,14 @@ Community feedback plays an important role in improving the platform. Bug report
 
 The PinnedPicks™ brand, logo, and platform assets are **proprietary**. Please do not redistribute branded assets, platform identity elements, or curated content without permission.
 
-The underlying HTML/CSS/JS structure is independently developed by **Centralyze**.
+The underlying HTML/CSS/JS structure is independently developed by **Centrilign**.
 
 ---
 
 <div align="center">
 
-**PinnedPicks™ by Centralyze** · Founded May 2026 · Philippines 🇵🇭
+**PinnedPicks™ by Centrilign** · Founded May 2026 · Philippines 🇵🇭
 
-[pinnedpicks.gt.tc](https://www.pinnedpicks.gt.tc/) · [Pinterest](https://ph.pinterest.com/centralyze_pinnedpicks/) · [Facebook](https://www.facebook.com/profile.php?id=61589260348084) · [Instagram](https://www.instagram.com/pinnedpicksbycentralyze/)
+[pinnedpicks.gt.tc](https://www.pinnedpicks.gt.tc/) · [Pinterest](https://pinterest.com/centrilign_pinnedpicks/) · [Facebook](https://www.facebook.com/profile.php?id=61589260348084) · [Instagram](https://www.instagram.com/pinnedpicks.centrilign/)
 
 </div>
